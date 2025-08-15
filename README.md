@@ -1,61 +1,261 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<a name="readme-top"></a>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+# Explicación del proyecto
+
+<p>Es un sitio de inventarios y ventas de productos.</p>
+
+<br />
+<br />
+
+# Instalación de manera local
+
+## Archivo .env
+
+#### Que es este archivo
+
+_El archivo `.env` en Laravel es un archivo de configuración que almacena variables de entorno para una aplicación. Estas variables se utilizan para configurar la aplicación en diferentes entornos, como desarrollo, pruebas y producción. El archivo `.env` se utiliza para almacenar información confidencial, como contraseñas de bases de datos, claves de API y credenciales de correo electrónico, que no deben ser compartidas en el código fuente de la aplicación. En su lugar, se almacenan en el archivo `.env` y se acceden a través de la función env en Laravel._
+
+### Credenciales
+
+_Al clonar este proyecto ve al archivo *.env.example* copia este archivo con el nombre de: `.env` y coloca tus credenciales, que coincidan con tu DB, Email_
+
+-   Ejemplo de credenciales para la DB, asegurate que coincidan con tu tipo de conexión para tu DB.
+
+1. **Asegúrate de configurar correctamente las siguientes variables:**
+
+-   `APP_NAME`: El nombre de tu aplicación.
+-   `APP_URL`: La URL base de tu aplicación (por ejemplo, `http://localhost:8000` o `http://127.0.0.1:8000`) o como sea la manera que levantes de manera local el proyecto.
+-   `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`: Configuración de la base de datos.
+-   `FILESYSTEM_DISK`: Establecer a `public` para el almacenamiento de imágenes.
+    Ejemplo de `.env`:
+
+```
+APP_NAME=MiProyecto
+APP_URL=http://127.0.0.1:8000
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=base_de_datos_nombre
+DB_USERNAME=usuario
+DB_PASSWORD=password
+FILESYSTEM_DISK=public
+```
+
+<br />
+<br />
+
+## Usuarios por defecto
+
+_Lo posterior al "@" `laravel` corresponde al nombre de la app en el archivo `.env`._
+
+| Admin      | Datos                     |
+| ---------- | ------------------------- |
+| Nombre     | Usuario Administrador     |
+| Email      | administrador@laravel.com |
+| Contraseña | 123                       |
+
+<br />
+<br />
+
+# Comandos
+
+## Comandos de Instalación
+
+-   _La instalación de este proyecto necesita que se ejecuten de manera cronológica y ordenada._
+
+```bash
+  cd InventarioVentas
+```
+
+1. **Instalación de los paquetes _Composer_**
+
+```bash
+  composer install
+```
+
+2. **Instalación de los paquetes _Node_**
+
+```bash
+  npm install
+```
+
+3. **Construcción de los paquetes _Node_**
+
+```bash
+  npm run build
+```
+
+4. **Generación de la _llave_ del proyecto**
+
+```bash
+  php artisan key:generate
+```
+
+5. **Generación de la _DB_**
+
+```bash
+  php artisan migrate
+```
+
+6. **Utilización del _Seeder_**
+
+```bash
+  php artisan db:seed
+```
+
+7.  **Crear el enlace simbólico para el almacenamiento público:**
+
+```bash
+    php artisan storage:link
+```
+
+<br />
+<br />
+
+_Listado de comandos que podrian ser necesarios_
+
+-   Limpieza de caché (events/views/cache/route/config/compiled)
+
+    ```
+     php artisan optimize:clear
+    ```
+
+-   Creación de los links de los archivos estaticos
+
+    ```
+    php artisan storage:link
+    ```
+
+-   Actualización de la información del cargador automático de clases.
+
+    ```
+    composer dump-autoload
+    ```
+
+-   Actualizar lang.
+
+    ```
+    php artisan lang:update
+    ```
+
+## Comandos DB/(SQL)
+
+_Listado de comandos DB_
+
+-   Reinicia desde cero la DB y crea los seeders
+
+    ```
+     php artisan migrate:fresh --seed
+    ```
+
+-   Revierte la/s última/s migración/es
+
+    ```
+     php artisan migrate:rollback
+    ```
+
+<br />
+<br />
+
+# Servidor Local
+
+_El funcionamiento de esta aplicacion requiere que este levantado de manera simultanea._
+
+## Servidores
+
+_Para levantar este servicio debes estar en la carpeta donde esta este proyecto, debe ser ejecutado con CMD y de manera simultanea el servidor backend y frontend._
+
+```bash
+  cd InventarioVentas
+```
+
+### Backend
+
+```bash
+  php artisan serve
+```
+
+<br />
+
+### Frontend
+
+```bash
+  npm run dev
+```
+
+## Configuración del servidor local
+
+-   _En el archivo `.env` (linea 5)
+    Asegúrate de que tu archivo `.env` tenga la variable APP_URL, (Si levantas el servidor con : `php artisan serve`), configurada correctamente:_
+
+```bash
+    APP_URL=http://127.0.0.1:8000
+```
+
+## Configuración de la zona horaria del servidor
+
+-   _En el archivo `.env` (linea 6)
+    Asegúrate de que tu archivo `.env` tenga la variable APP_TIMEZONE configurada correctamente (Concida con tu zona horaria):_
+
+```bash
+    APP_TIMEZONE=America/Mexico_City
+```
+
+<br />
+
+#### Servidor temporal
+
+_Es posible que quieras levantar este proyecto para que otro dispositivo pueda probar este, o hacer pruebas._
+
+-   Encuentra la dirección IP de tu computadora:
+
+-   Abre una terminal en tu computadora y ejecuta el comando:
+
+```bash
+ipconfig
+```
+
+Busca la línea que dice Dirección `IPv4` bajo la sección de tu adaptador de red. Será algo como `192.168.0.100.`
+
+```bash
+  php artisan serve --host 0.0.0.0 --port 8000
+```
+
+<p>
+Aquí, --host 0.0.0.0 indica que el servidor debe aceptar conexiones de cualquier dirección IP, y --port 8000 especifica el puerto en el que el servidor escuchará las conexiones.
 </p>
 
-## About Laravel
+Recuerda ejecutar: la construcción de los paquetes _Node_
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```bash
+  npm run build
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+_Ejemplo:_
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+  http://192.168.0.100:8000/
+```
 
-## Learning Laravel
+<br />
+<br />
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Programas Necesarios
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   [Node](https://nodejs.org/en)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Programas Opcionales
 
-## Laravel Sponsors
+-   [Laragon](https://laragon.org/)
+-   [VS Code](https://code.visualstudio.com/)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Paquetes utlizados
 
-### Premium Partners
+-   [Laravel](https://laravel.com/)
+-   [Jetstream](https://jetstream.laravel.com/introduction.html)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Contacto
 
-## Contributing
+Mi Cuenta GitHub: [https://github.com/DonMartinWorks](https://github.com/DonMartinWorks)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<a href="#readme-top">Subir a las instrucciones</a>

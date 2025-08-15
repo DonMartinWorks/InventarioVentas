@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        /**
+         * ================
+         *  DELETE FOLDERS
+         * ================
+         */
+        if (Storage::exists('livewire-tmp')) {
+            Storage::deleteDirectory('livewire-tmp');
+            echo "Folder 'livewire-tmp' deleted.\n";
+        }
+
+        if (Storage::exists('profile-photos')) {
+            Storage::deleteDirectory('profile-photos');
+            echo "Folder 'profile-photos' deleted.\n";
+        }
+
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(AuthenticatedUserSeeder::class);
     }
 }
