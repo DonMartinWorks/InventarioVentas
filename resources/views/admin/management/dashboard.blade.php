@@ -1,3 +1,3 @@
 <x-admin-layout>
-    asd
+    <i class="fa-solid fa-face-smile"></i>
 </x-admin-layout>
