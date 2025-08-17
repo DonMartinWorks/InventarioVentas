@@ -49,26 +49,28 @@
                             <ul class="py-1" role="none">
                                 <li>
                                     <a href="{{ route('admin.home') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        class="block text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">{{ __('Dashboard') }}</a>
                                 </li>
 
                                 <li>
                                     <a href="{{ route('profile.show') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        class="block text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">{{ __('Profile') }}</a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    <a href="#" class="block text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Earnings</a>
                                 </li>
+
+                                <li class="border-t border-gray-100"></li>
 
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf
                                         <a href="{{ route('logout') }}" @click.prevent="$root.submit();"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            class="block text-center px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-rose-700 hover:font-semibold transition-all"
                                             role="menuitem">
                                             {{ __('Log Out') }}
                                         </a>
