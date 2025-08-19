@@ -3,8 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
+    /**
+     * Get all of the products for the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'foreign_key', 'local_key');
+    }
 }

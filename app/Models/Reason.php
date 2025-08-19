@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reason extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['name'];
 }
