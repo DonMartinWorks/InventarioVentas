@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Management\CategorySeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,6 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
-        $this->call(AuthenticatedUserSeeder::class);
+        $this->call([AuthenticatedUserSeeder::class, CategorySeeder::class]);
     }
 }
