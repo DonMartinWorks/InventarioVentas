@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\DashboardController as Dashboard;
+use App\Http\Controllers\Admin\Management\CategoryController as Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('home');
+Route::get('/', [Dashboard::class, 'index'])->name('home');
+Route::resource('/categories', Category::class)->except('show');

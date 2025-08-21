@@ -7,6 +7,17 @@
             'route' => route('admin.home'),
             'active' => request()->routeIs('admin.home'),
         ],
+
+        [
+            'header' => __('Management'),
+        ],
+
+        [
+            'name' => __('Categories'),
+            'icon' => 'fa-solid fa-tag',
+            'route' => route('admin.categories.index'),
+            'active' => request()->routeIs('admin.categories.*'),
+        ],
     ];
 @endphp
 
