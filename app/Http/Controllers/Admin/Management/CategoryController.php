@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Management;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
@@ -81,8 +83,25 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse|Response
     {
-        //
+        try {
+            $category->delete();
+
+            // $this->deletedNotification($role->name);
+            session()->flash('swal', [
+            'title' => __("Deleted"),
+            'text' => __(":name has been deleted", ['name' => $category->name]),
+            'icon' => "warning"
+        ]);
+
+            return redirect()->route('admin.categories.index');
+        } catch (\Exception $e) {
+            // Log the error to Laravel's log file
+            Log::error('Error deleting :name', ['name' => $category->name . ' ' . $e->getMessage()]);
+
+            // Return an error response to the AJAX request
+            return response(['status' => 'error', 'message' => __('Failed to delete :name. Please try again later.', ['name' => __('role')])], 500);
+        }
     }
 }
