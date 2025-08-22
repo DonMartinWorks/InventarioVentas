@@ -14,9 +14,9 @@ class CategoryDatatable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
 
-        $this->setDefaultSort('name', 'ASC');
+        // $this->setDefaultSort('name', 'ASC');
 
-        $this->setColumnSelectStatus(false);
+        $this->setColumnSelectStatus(true);
     }
 
     public function columns(): array

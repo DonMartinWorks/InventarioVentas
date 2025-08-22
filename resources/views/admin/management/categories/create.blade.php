@@ -7,7 +7,7 @@
 
     // Route Categories
     [
-        'name' => __('All :name', ['name' => __('Categories')]),
+        'name' => __('Categories'),
         'url' => route('admin.categories.index'),
     ],
 
