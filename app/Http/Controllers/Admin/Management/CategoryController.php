@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -28,9 +29,16 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100', 'min:2', 'unique:categories,name'],
+            'description' => ['nullable', 'string', 'max:1000']
+        ]);
+
+        $category = Category::create($data);
+
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**
