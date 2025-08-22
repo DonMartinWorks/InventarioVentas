@@ -61,7 +61,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100', 'min:2', 'unique:categories,name,' . $category->id],
+            'description' => ['nullable', 'string', 'max:1000']
+        ]);
+
+        $category->update($data);
+
+        # Toast Message
+        session()->flash('swal', [
+            'title' => __("Updated"),
+            'text' => __(":name has been updated", ['name' => $request->name]),
+            'icon' => "success"
+        ]);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
