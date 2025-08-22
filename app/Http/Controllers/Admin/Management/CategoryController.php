@@ -90,10 +90,10 @@ class CategoryController extends Controller
 
             // $this->deletedNotification($role->name);
             session()->flash('swal', [
-            'title' => __("Deleted"),
-            'text' => __(":name has been deleted", ['name' => $category->name]),
-            'icon' => "warning"
-        ]);
+                'title' => __("Deleted"),
+                'text' => __(":name has been deleted", ['name' => $category->name]),
+                'icon' => "warning"
+            ]);
 
             return redirect()->route('admin.categories.index');
         } catch (\Exception $e) {
