@@ -1,9 +1,12 @@
 {
     "(and :count more error)": "(y :count error más)",
     "(and :count more errors)": "(y :count error más)|(y :count errores más)|(y :count errores más)",
+    ":name created!": "¡:name creado!",
+    ":name deleted!": "¡:name eliminado!",
     ":name has been created": ":name ha sido creado",
     ":name has been deleted": ":name ha sido eliminado",
     ":name has been updated": ":name ha sido actualizado",
+    ":name updated!": "¡:name actualizado!",
     "A decryption key is required.": "Se requiere una clave de descifrado.",
     "A new verification link has been sent to the email address you provided in your profile settings.": "Se ha enviado un nuevo enlace de verificación a la dirección de correo electrónico que proporcionó en la configuración de su perfil.",
     "A new verification link has been sent to your email address.": "Se ha enviado un nuevo enlace de verificación a su dirección de correo electrónico.",

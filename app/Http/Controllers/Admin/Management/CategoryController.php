@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Management;
 
 use App\Models\Category;
+use App\Traits\SweetAlertNotifications;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
+    use SweetAlertNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -41,11 +44,7 @@ class CategoryController extends Controller
         $category = Category::create($data);
 
         # Toast Message
-        session()->flash('swal', [
-            'title' => __("Created"),
-            'text' => __(":name has been created", ['name' => $request->name]),
-            'icon' => "success"
-        ]);
+        $this->createdNotification(__('Category'));
 
         return redirect()->route('admin.categories.edit', $category);
     }
@@ -71,11 +70,7 @@ class CategoryController extends Controller
         $category->update($data);
 
         # Toast Message
-        session()->flash('swal', [
-            'title' => __("Updated"),
-            'text' => __(":name has been updated", ['name' => $request->name]),
-            'icon' => "success"
-        ]);
+        $this->updatedNotification($request->name);
 
         return redirect()->route('admin.categories.index');
     }
@@ -88,12 +83,7 @@ class CategoryController extends Controller
         try {
             $category->delete();
 
-            // $this->deletedNotification($role->name);
-            session()->flash('swal', [
-                'title' => __("Deleted"),
-                'text' => __(":name has been deleted", ['name' => $category->name]),
-                'icon' => "warning"
-            ]);
+            $this->deletedNotification($category->name);
 
             return redirect()->route('admin.categories.index');
         } catch (\Exception $e) {
