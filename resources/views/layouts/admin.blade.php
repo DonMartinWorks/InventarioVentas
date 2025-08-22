@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Sweet Alert -->
+    <x-plugins.links.sweet-alert />
+
     <!-- WireUI -->
     <wireui:scripts />
 
@@ -57,7 +60,7 @@
     @livewireScripts
 
     {{-- Sweet Alert --}}
-    {{-- <x-plugins.sweet-alert /> --}}
+    <x-plugins.scripts.sweet-alert />
 
     @stack('js')
 </body>

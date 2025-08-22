@@ -38,6 +38,13 @@ class CategoryController extends Controller
 
         $category = Category::create($data);
 
+        # Toast Message
+        session()->flash('swal', [
+            'title' => __("Created"),
+            'text' => __(":name has been created", ['name' => $request->name]),
+            'icon' => "success"
+        ]);
+
         return redirect()->route('admin.categories.edit', $category);
     }
 
