@@ -18,6 +18,13 @@
             'route' => route('admin.categories.index'),
             'active' => request()->routeIs('admin.categories.*'),
         ],
+
+        [
+            'name' => __('Products'),
+            'icon' => 'fa-solid fa-box-archive',
+            'route' => route('admin.products.index'),
+            'active' => request()->routeIs('admin.products.*'),
+        ],
     ];
 @endphp
 

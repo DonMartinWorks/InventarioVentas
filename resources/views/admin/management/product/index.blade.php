@@ -1,17 +1,17 @@
-<x-admin-layout title="{{ __('All :name', ['name' => __('Categories')]) }}" :breadcrumb="[
+<x-admin-layout title="{{ __('All :name', ['name' => __('Products')]) }}" :breadcrumb="[
     // Route Dashboard
     [
         'name' => __('Dashboard'),
         'url' => route('admin.home'),
     ],
 
-    // Route Categories
+    // Route Products
     [
-        'name' => __('Categories'),
+        'name' => __('Products'),
     ],
 ]">
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.categories.create" modelName="Categories" />
+        <x-forms.title-header createRoute="admin.products.create" modelName="Products" />
     </x-slot>
 
     <section class="mt-8">

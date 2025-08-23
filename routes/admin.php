@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController as Dashboard;
 use App\Http\Controllers\Admin\Management\CategoryController as Category;
+use App\Http\Controllers\Admin\Management\ProductController as Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,12 @@ use App\Http\Controllers\Admin\Management\CategoryController as Category;
 */
 
 Route::get('/', [Dashboard::class, 'index'])->name('home');
+
+/**
+ * ===========================
+ *  MANAGEMENT SECTION ROUTES
+ * ===========================
+ */
 Route::resource('/categories', Category::class)->except('show');
+
+Route::resource('/products', Product::class)->except('show');
