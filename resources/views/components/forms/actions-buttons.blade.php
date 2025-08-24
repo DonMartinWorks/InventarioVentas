@@ -10,7 +10,7 @@
     <form action="{{ $destroyRoute }}" method="POST" class="delete-resource-form">
         @csrf
         @method('DELETE')
-        <x-wire-button lg negative title="{{ __('Destroy :name', ['name' => $titleName]) }}" type="submit">
+        <x-wire-button lg negative title="{{ __('Delete :name', ['name' => $titleName]) }}" type="submit">
             <x-wire-icon name="trash" class="w-4 h-4" lg />
         </x-wire-button>
     </form>

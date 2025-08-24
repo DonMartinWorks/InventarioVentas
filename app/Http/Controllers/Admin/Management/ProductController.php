@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        return view('admin.management.product.index');
+        return view('admin.management.products.index');
     }
 
     /**
@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('admin.management.product.create');
+        return view('admin.management.products.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        return view('admin.management.product.edit', compact('product'));
+        return view('admin.management.products.edit', compact('product'));
     }
 
     /**
