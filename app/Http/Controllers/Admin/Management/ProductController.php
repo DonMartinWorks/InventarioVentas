@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin\Management;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\SweetAlertNotifications;
 
 class ProductController extends Controller
 {
+    use SweetAlertNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +26,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('admin.management.products.create');
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        return view('admin.management.products.create', compact('categories'));
     }
 
     /**
@@ -30,7 +36,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:150'],
+            'description' => ['nullable', 'string'],
+            'price' => ['required', 'numeric'],
+            'category_id' => ['required', 'exists:categories,id']
+        ]);
+
+        $product = Product::create($data);
+
+        # Toast Message
+        $this->createdNotification(__('Product'));
+
+        return redirect()->route('admin.products.edit', $product);
     }
 
     /**
