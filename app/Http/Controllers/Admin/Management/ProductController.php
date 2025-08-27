@@ -56,7 +56,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        return view('admin.management.products.edit', compact('product'));
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        return view('admin.management.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -64,7 +66,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:150'],
+            'description' => ['nullable', 'string'],
+            'price' => ['required', 'numeric'],
+            'category_id' => ['required', 'exists:categories,id']
+        ]);
+
+        $product->update($data);
+
+        # Toast Message
+        $this->updatedNotification($request->name);
+
+        return redirect()->route('admin.products.index');
     }
 
     /**
