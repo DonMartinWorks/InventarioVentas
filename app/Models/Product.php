@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -44,6 +45,65 @@ class Product extends Model
     public function inventories(): HasMany
     {
         return $this->hasMany(Inventory::class);
+    }
+
+    /**
+     * Get all the purchase orders that the product is a part of.
+     *
+     * This is a polymorphic many-to-many relationship. It allows a Product to be
+     * part of many different purchase orders, and each purchase order can have
+     * many products. The `productable` morph name is used to indicate that
+     * this model is related through the polymorphic `productables` table.
+     *
+     */
+    public function purchaseOrders(): MorphToMany
+    {
+        return $this->morphedByMany(PurchaseOrder::class, 'productable');
+    }
+
+    /**
+     * Get all the quotes that the product is a part of.
+     *
+     * This is a polymorphic many-to-many relationship. It allows a Product to be
+     * part of many different quotes, and each quote can have many products. The
+     * `productable` morph name is used to indicate that this model is related
+     * through the polymorphic `productables` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function quotes(): MorphToMany
+    {
+        return $this->morphedByMany(Quote::class, 'productable');
+    }
+
+    /**
+     * Get all the sales that the product is a part of.
+     *
+     * This is a polymorphic many-to-many relationship. It allows a Product to be
+     * part of many different sales, and each sale can have many products. The
+     * `productable` morph name is used to indicate that this model is related
+     * through the polymorphic `productables` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function sales(): MorphToMany
+    {
+        return $this->morphedByMany(Sale::class, 'productable');
+    }
+
+    /**
+     * Get all the transfers that the product is a part of.
+     *
+     * This is a polymorphic many-to-many relationship. It allows a Product to be
+     * part of many different transfers, and each transfer can have many products. The
+     * `productable` morph name is used to indicate that this model is related
+     * through the polymorphic `productables` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function transfers(): MorphToMany
+    {
+        return $this->morphedByMany(Transfer::class, 'productable');
     }
 
     /**

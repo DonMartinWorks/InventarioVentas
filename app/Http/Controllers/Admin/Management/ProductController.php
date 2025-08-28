@@ -6,7 +6,10 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
 
 class ProductController extends Controller
@@ -84,8 +87,40 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): RedirectResponse|Response
     {
-        //
+        if ($product->inventories()->exists()) {
+            $this->errorNotification(
+                __(':name Exists!', ['name' => __('Inventory')]),
+                __('The product cannot be deleted because there is associated inventory.'),
+                10000
+            );
+
+            return redirect()->route('admin.products.index');
+        }
+
+        if ($product->purchaseOrders()->exists() || $product->quotes()->exists()) {
+            $this->errorNotification(
+                __(':name Exists!', ['name' => __('Product')]),
+                __('The product cannot be deleted because it has no purchase orders or any associated quotes.'),
+                10000
+            );
+
+            return redirect()->route('admin.products.index');
+        }
+
+        try {
+            $product->delete();
+
+            $this->deletedNotification($product->name);
+
+            return redirect()->route('admin.products.index');
+        } catch (\Exception $e) {
+            // Log the error to Laravel's log file
+            Log::error('Error deleting :name', ['name' => $product->name . ' ' . $e->getMessage()]);
+
+            // Return an error response to the AJAX request
+            return response(['status' => 'error', 'message' => __('Failed to delete :name. Please try again later.', ['name' => __('product')])], 500);
+        }
     }
 }
