@@ -29,3 +29,4 @@ Route::get('/', [Dashboard::class, 'index'])->name('home');
 Route::resource('/categories', Category::class)->except('show');
 
 Route::resource('/products', Product::class)->except('show');
+Route::post('/products/{product}/dropzone', [Product::class,'dropzone'])->name('products.dropzone');

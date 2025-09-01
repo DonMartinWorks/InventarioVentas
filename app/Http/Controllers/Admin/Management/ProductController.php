@@ -7,10 +7,12 @@ use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -122,5 +124,22 @@ class ProductController extends Controller
             // Return an error response to the AJAX request
             return response(['status' => 'error', 'message' => __('Failed to delete :name. Please try again later.', ['name' => __('product')])], 500);
         }
+    }
+
+    /**
+     * Store the image form.
+     */
+    public function dropzone(Request $request, Product $product): JsonResponse
+    {
+        $disk = '/images/products';
+
+        $image = $product->images()->create([
+            'path' => Storage::put($disk, $request->file('file')),
+            'size' => $request->file('file')->getSize()
+        ]);
+
+        return response()->json([
+            'path' => $image->path
+        ]);
     }
 }

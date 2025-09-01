@@ -31,6 +31,16 @@ class DatabaseSeeder extends Seeder
             echo "Folder 'profile-photos' deleted.\n";
         }
 
+        if (Storage::exists('images/products')) {
+            Storage::deleteDirectory('images/products');
+            echo "Folder 'images products' deleted.\n";
+        }
+
+        if (Storage::exists('images')) {
+            Storage::deleteDirectory('images');
+            echo "Folder 'images' deleted.\n";
+        }
+
         // User::factory(10)->create();
 
         $this->call([AuthenticatedUserSeeder::class, CategorySeeder::class, ProductSeeder::class]);
