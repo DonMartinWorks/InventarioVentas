@@ -9,10 +9,6 @@
         ],
 
         [
-            'header' => __('Management'),
-        ],
-
-        [
             'name' => __('Categories'),
             'icon' => 'fa-solid fa-tag',
             'route' => route('admin.categories.index'),
