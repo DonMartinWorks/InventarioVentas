@@ -16,6 +16,15 @@
             table td {
                 font-size: 0.80rem !important;
             }
+
+            /*
+            .product-image {
+                width: 5rem !important;
+                height: 3rem !important;
+                object-fit: cover !important;
+                object-position: center !important;
+            }
+            */
         </style>
     @endpush
 

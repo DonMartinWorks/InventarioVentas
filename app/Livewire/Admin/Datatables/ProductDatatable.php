@@ -6,6 +6,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
 
 class ProductDatatable extends DataTableComponent
 {
@@ -23,6 +24,15 @@ class ProductDatatable extends DataTableComponent
         return [
             Column::make(__("Id"), "id")
                 ->sortable(),
+            ImageColumn::make(__('Image'))
+                ->location(
+                    fn($row) => $row->image
+                )
+                ->html()
+                ->attributes(fn($row) => [
+                    'class' => 'w-24 h-24 object-cover object-center aspect-square',
+                    'style' => 'width: 125px; max-height: 125px;',
+                ]),
             Column::make(__("Name"), "name")
                 ->searchable()
                 ->sortable(),
@@ -68,6 +78,6 @@ class ProductDatatable extends DataTableComponent
     public function builder(): Builder
     {
         return Product::query()
-            ->with(['category']);
+            ->with(['category', 'images']);
     }
 }

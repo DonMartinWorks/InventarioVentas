@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -26,6 +28,23 @@ class Product extends Model
         'price',
         'category_id',
     ];
+
+    /**
+     * Get the product's primary image URL.
+     *
+     * This is an accessor that dynamically generates a URL for the first
+     * image associated with the product. If no images are found, it
+     * returns a default "no image" placeholder URL. Accessing the `image`
+     * attribute on a Product model will return this generated URL.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->images->count() ? Storage::url($this->images->first()->path) : 'https://dynamoprojects.com/wp-content/uploads/2022/12/no-image.jpg'
+        );
+    }
 
     /**
      * Get the category that owns the Product
