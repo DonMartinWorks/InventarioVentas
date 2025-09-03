@@ -139,6 +139,7 @@ class ProductController extends Controller
         ]);
 
         return response()->json([
+            'id' => $image->id,
             'path' => $image->path
         ]);
     }
