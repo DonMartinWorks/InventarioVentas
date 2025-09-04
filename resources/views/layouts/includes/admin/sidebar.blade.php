@@ -21,6 +21,13 @@
             'route' => route('admin.products.index'),
             'active' => request()->routeIs('admin.products.*'),
         ],
+
+        [
+            'name' => __('Customers'),
+            'icon' => 'fa-solid fa-clipboard-user',
+            'route' => route('admin.customers.index'),
+            'active' => request()->routeIs('admin.customers.*'),
+        ],
     ];
 @endphp
 
