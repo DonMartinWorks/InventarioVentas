@@ -14,12 +14,12 @@ class IdentitySeeder extends Seeder
     public function run(): void
     {
         $identities = [
-            'Sin Documento',
             'RUT',
             'Pasaporte',
             'Carnet de extranjería',
             'RUC',
-            'DNI'
+            'DNI',
+            'Sin Documento'
         ];
 
         foreach ($identities as $identity) {
