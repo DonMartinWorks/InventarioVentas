@@ -27,10 +27,11 @@
     @stack('css')
 </head>
 
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased bg-neutral-200">
     {{-- Header --}}
     @include('layouts.includes.admin.navigation')
 
+    {{-- Sidebar --}}
     @include('layouts.includes.admin.sidebar')
 
     <div class="p-4 sm:ml-64">
@@ -44,7 +45,7 @@
             </div>
         @endif
 
-        <div class="mt-4 p-4 border bg-gray-50 rounded-lg">
+        <div class="mt-4 p-3 border border-gray-300 bg-neutral-100 rounded-lg">
             {{ $slot }}
         </div>
     </div>

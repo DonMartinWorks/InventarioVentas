@@ -1,6 +1,6 @@
 @if (count($breadcrumb) > 0)
     <div class="md:flex md:space-x-4 mb-4">
-        <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-stone-50 mb-4 md:mb-0 md:flex-grow-0 md:w-8/12"
+        <nav class="flex px-5 py-3 text-gray-700 border border-gray-300 rounded-lg bg-neutral-100 mb-4 md:mb-0 md:flex-grow-0 md:w-8/12"
             aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 @foreach ($breadcrumb as $item)
@@ -52,7 +52,7 @@
         {{--  --}}
         @if (count($breadcrumb) > 1)
             <div title="{{ end($breadcrumb)['name'] }}"
-                class="w-full md:w-4/12 flex items-center justify-center p-2 border border-gray-200 rounded-lg bg-stone-50">
+                class="w-full md:w-4/12 flex items-center justify-center p-2 border border-gray-300 rounded-lg bg-neutral-100">
                 <h6 class="text-lg font-extrabold line-clamp-1 leading-none tracking-tight text-gray-600 md:text-xl">
                     <i class="fa-solid fa-location-dot text-sky-500"></i>&#160;&#160;{{ end($breadcrumb)['name'] }}
                 </h6>

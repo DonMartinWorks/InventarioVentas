@@ -1,13 +1,13 @@
 @props(['createRoute', 'modelName'])
 
-<div class="p-4 border bg-gray-50 rounded-lg">
+<div class="p-4 border bg-neutral-100 border-gray-300 rounded-lg">
     <div class="flex items-center justify-between mx-2">
-        <h2 class="text-2xl uppercase font-extrabold underline underline-offset-4 text-stone-800">
+        <h2 class="text-2xl uppercase font-extrabold underline underline-offset-4 text-stone-800 line-clamp-1">
             {{ __('All :name', ['name' => __($modelName)]) }}
         </h2>
 
-        <a href="{{ route($createRoute) }}"
-            class="bg-green-500 text-white font-bold py-2 px-4 rounded-md border shadow-md">
+        <a href="{{ route($createRoute) }}" title="{{ __('Create :name', ['name' => __($modelName)]) }}"
+            class="bg-green-500 hover:bg-green-400 text-white hover:text-gray-600 font-bold py-2 px-4 rounded-md transition-colors border">
             <i class="fa-solid fa-folder-plus mr-2"></i>{{ __('Create :name', ['name' => __($modelName)]) }}
         </a>
     </div>

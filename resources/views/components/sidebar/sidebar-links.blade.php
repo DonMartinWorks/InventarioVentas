@@ -17,6 +17,8 @@
     $hoverStyles = 'hover:bg-yellow-50 hover:text-yellow-600 hover:font-semibold hover:border-yellow-300';
     $hoverIconContainerStyles = 'group-hover:bg-yellow-500 rounded-full w-7 h-7 flex justify-center items-center';
     $hoverIconStyles = 'group-hover:text-white';
+
+    $withoutIcon = 'fa-solid fa-minus';
 @endphp
 
 @isset($item['header'])
@@ -37,10 +39,12 @@
                 <span
                     class="inline-flex w-5 h-5 justify-center items-center {{ $isActive ? $iconContainerActiveClasses : $iconContainerInactiveClasses }} {{ $hoverIconContainerStyles }}">
                     <i
-                        class="w-4 h-4 {{ $isActive ? $iconActiveClasses : $iconInactiveClasses }} {{ $hoverIconStyles }} {{ $item['icon'] }}"></i>
+                        class="w-4 h-4 {{ $isActive ? $iconActiveClasses : $iconInactiveClasses }} {{ $hoverIconStyles }} {{ $item['icon'] ?? $withoutIcon }}"></i>
                 </span>
+
                 <span
                     class="ms-3 flex-1 text-left {{ $isActive ? 'text-yellow-600' : 'text-gray-700' }} group-hover:text-yellow-600">{{ $item['name'] }}</span>
+
                 <i class="fa-solid fa-angle-down transform transition-transform duration-300 {{ $isActive ? 'text-yellow-600' : 'text-gray-400' }} group-hover:text-yellow-600"
                     :class="{ 'rotate-180': open }"></i>
             </button>
@@ -49,8 +53,9 @@
                 <span
                     class="inline-flex w-5 h-5 justify-center items-center {{ $isActive ? $iconContainerActiveClasses : $iconContainerInactiveClasses }} {{ $hoverIconContainerStyles }}">
                     <i
-                        class="w-4 h-4 {{ $isActive ? $iconActiveClasses : $iconInactiveClasses }} {{ $hoverIconStyles }} {{ $item['icon'] }}"></i>
+                        class="w-4 h-4 {{ $isActive ? $iconActiveClasses : $iconInactiveClasses }} {{ $hoverIconStyles }} {{ $item['icon'] ?? $withoutIcon }}"></i>
                 </span>
+
                 <span
                     class="ms-3 {{ $isActive ? 'text-yellow-600' : 'text-gray-700' }} group-hover:text-yellow-600">{{ $item['name'] }}</span>
             </a>
@@ -62,7 +67,7 @@
                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
                 x-transition:leave="transition-all ease-in-out duration-300"
                 x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
-                class="space-y-2 overflow-hidden border-l border-yellow-200 ml-5 pl-4 py-2 mt-1">
+                class="space-y-2 overflow-hidden border-l border-stone-300 ml-3 pl-3 py-2 my-2">
                 @foreach ($item['submenu'] as $subItem)
                     <li>
                         <x-sidebar.sidebar-links :item="$subItem" isSubItem />
