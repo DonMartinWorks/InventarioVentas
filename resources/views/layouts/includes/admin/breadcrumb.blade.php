@@ -1,6 +1,6 @@
 @if (count($breadcrumb) > 0)
     <div class="md:flex md:space-x-4 mb-4">
-        <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 mb-4 md:mb-0 md:flex-grow-0 md:w-8/12"
+        <nav class="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-stone-50 mb-4 md:mb-0 md:flex-grow-0 md:w-8/12"
             aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 @foreach ($breadcrumb as $item)
@@ -17,16 +17,16 @@
                                 {{-- Home link or span based on URL existence --}}
                                 @isset($item['url'])
                                     <a href="{{ $item['url'] }}"
-                                        class="text-sm font-medium text-gray-500 hover:text-yellow-500">{{ $item['name'] }}</a>
+                                        class="text-sm line-clamp-1 font-medium text-gray-500 hover:text-yellow-500">{{ $item['name'] }}</a>
                                 @else
                                     <span
-                                        class="text-sm font-semibold text-gray-500 cursor-default hover:underline hover:underline-offset-4">{{ $item['name'] }}</span>
+                                        class="text-sm line-clamp-1 font-semibold text-gray-500 cursor-default hover:underline hover:underline-offset-4">{{ $item['name'] }}</span>
                                 @endisset
                             </div>
                         </li>
                     @else
                         {{-- All other items --}}
-                        <li>
+                        <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 {{-- Arrow icon for all but the first item --}}
                                 <svg class="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400" aria-hidden="true"
@@ -37,10 +37,10 @@
                                 {{-- Link or span based on URL existence --}}
                                 @isset($item['url'])
                                     <a href="{{ $item['url'] }}"
-                                        class="ms-1 text-sm font-medium text-gray-500 hover:text-yellow-500 md:ms-2">{{ $item['name'] }}</a>
+                                        class="ms-1 text-sm line-clamp-1 font-medium text-gray-500 hover:text-yellow-500 md:ms-2">{{ $item['name'] }}</a>
                                 @else
                                     <span
-                                        class="ms-1 text-sm font-semibold text-yellow-500 cursor-default md:ms-2 underline underline-offset-4">{{ $item['name'] }}</span>
+                                        class="ms-1 text-sm line-clamp-1 font-semibold text-yellow-500 cursor-default md:ms-2 underline underline-offset-4">{{ $item['name'] }}</span>
                                 @endisset
                             </div>
                         </li>
@@ -49,10 +49,11 @@
             </ol>
         </nav>
 
+        {{--  --}}
         @if (count($breadcrumb) > 1)
-            <div
-                class="w-full md:w-4/12 flex items-center justify-center p-2 border border-gray-200 rounded-lg bg-gray-50">
-                <h6 class="text-lg font-extrabold leading-none tracking-tight text-gray-600 md:text-xl">
+            <div title="{{ end($breadcrumb)['name'] }}"
+                class="w-full md:w-4/12 flex items-center justify-center p-2 border border-gray-200 rounded-lg bg-stone-50">
+                <h6 class="text-lg font-extrabold line-clamp-1 leading-none tracking-tight text-gray-600 md:text-xl">
                     <i class="fa-solid fa-location-dot text-sky-500"></i>&#160;&#160;{{ end($breadcrumb)['name'] }}
                 </h6>
             </div>

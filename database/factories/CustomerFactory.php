@@ -17,7 +17,7 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'identity_id' => 1,
+            'identity_id' =>  \App\Models\Identity::all()->random()->id,
             'document_number' => fake()->unique()->numerify('###########'),
             'name' => fake()->company(),
             'email' => fake()->unique()->companyEmail(),

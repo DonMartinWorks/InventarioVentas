@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->unique()->sentence(),
             'description' => fake()->paragraph(3),
-            'sku' => 'SKU-' . fake()->unique()->regexify('[A-Z0-9]{9}'),
+            'sku' => 'SKU-' . fake()->unique()->regexify('[A-Z0-9]{10}'),
             'price' => fake()->randomFloat(2, 1000, 1000000),
             'category_id' => \App\Models\Category::all()->random()->id
         ];
