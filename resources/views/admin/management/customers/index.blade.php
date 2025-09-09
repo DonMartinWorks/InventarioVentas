@@ -10,12 +10,21 @@
         'name' => __('Customers'),
     ],
 ]">
+    @push('css')
+        <style>
+            table th span,
+            table td {
+                font-size: 0.80rem !important;
+            }
+        </style>
+    @endpush
+
     <x-slot name="actions">
         <x-forms.title-header createRoute="admin.customers.create" modelName="Customers" />
     </x-slot>
 
     <section class="mt-8">
-        {{--  --}}
+        @livewire('admin.datatables.customer-datatable')
     </section>
 
     @push('js')
