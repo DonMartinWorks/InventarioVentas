@@ -28,6 +28,13 @@
             'route' => route('admin.customers.index'),
             'active' => request()->routeIs('admin.customers.*'),
         ],
+
+        [
+            'name' => __('Suppliers'),
+            'icon' => 'fa-solid fa-truck',
+            'route' => route('admin.suppliers.index'),
+            'active' => request()->routeIs('admin.suppliers.*'),
+        ],
     ];
 @endphp
 

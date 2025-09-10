@@ -7,14 +7,16 @@ use App\Models\Identity;
 use Illuminate\View\View;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
 
 class CustomerController extends Controller
 {
     use SweetAlertNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -90,7 +92,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(Customer $customer): RedirectResponse|Response
     {
         if ($customer->quotes()->exists() || $customer->sales()->exists()) {
             $this->errorNotification('Error!', 'The customer cannot be deleted because he has quotes or sales associated with him.');

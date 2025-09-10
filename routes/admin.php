@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController as Dashboard;
 use App\Http\Controllers\Admin\ImageController as Image;
 use App\Http\Controllers\Admin\Management\CategoryController as Category;
 use App\Http\Controllers\Admin\Management\CustomerController as Customer;
+use App\Http\Controllers\Admin\Management\SupplierController as Supplier;
 use App\Http\Controllers\Admin\Management\ProductController as Product;
 
 /*
@@ -35,3 +36,5 @@ Route::resource('/products', Product::class)->except('show');
 Route::post('/products/{product}/dropzone', [Product::class, 'dropzone'])->name('products.dropzone');
 
 Route::resource('/customers', Customer::class)->except('show');
+
+Route::resource('/suppliers', Supplier::class)->except('show');

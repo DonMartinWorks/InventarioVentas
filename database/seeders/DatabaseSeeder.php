@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use App\Models\User;
 
 use App\Models\Customer;
+use App\Models\Supplier;
 use Database\Seeders\Management\CategorySeeder;
 use Database\Seeders\Management\IdentitySeeder;
 use Database\Seeders\Management\ProductSeeder;
@@ -54,5 +55,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Customer::factory(40)->create();
+        Supplier::factory(40)->create();
     }
 }
