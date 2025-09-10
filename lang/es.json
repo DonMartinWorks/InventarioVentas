@@ -1,6 +1,7 @@
 {
     "(and :count more error)": "(y :count error más)",
     "(and :count more errors)": "(y :count error más)|(y :count errores más)|(y :count errores más)",
+    ":attribute format is not a valid phone number.": ":attribute no es un formato válido para este número de teléfono.",
     ":name created!": "¡:name creado!",
     ":name deleted!": "¡:name eliminado!",
     ":name Exists!": "¡:name Existe!",

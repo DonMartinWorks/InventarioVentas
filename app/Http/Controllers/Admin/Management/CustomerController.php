@@ -67,9 +67,23 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer): RedirectResponse
     {
-        //
+        $data = $request->validate([
+            'identity_id' => ['required', 'exists:identities,id'],
+            'document_number' => ['required', 'string', 'max:20', 'unique:customers,document_number,' . $customer->id],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:customers,email,' . $customer->id],
+            'address' => ['nullable', 'string', 'max:300'],
+            'phone' => ['nullable', 'string', 'max:18', 'unique:customers,phone,' . $customer->id, new PhoneNumber],
+        ]);
+
+        $customer->update($data);
+
+        # Toast Message
+        $this->updatedNotification($request->name);
+
+        return redirect()->route('admin.customers.index');
     }
 
     /**

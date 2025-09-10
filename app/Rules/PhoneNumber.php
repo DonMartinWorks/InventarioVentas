@@ -17,7 +17,7 @@ class PhoneNumber implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!preg_match('/^[\d\s\+\-\(\)]+$/', $value)) {
-            $message = __('The :attribute format is invalid.');
+            $message = __(':attribute format is not a valid phone number.');
 
             $fail($message);
         }
