@@ -32,7 +32,7 @@
         <div class="col-span-1 md:col-span-2">
             <x-wire-input label="{{ __('Address') }}" name="address"
                 placeholder="{{ __('Please insert this information: :name', ['name' => __('Address')]) }}"
-                value="{{ old('address', @$customer->address) }}" required />
+                value="{{ old('address', @$customer->address) }}" />
         </div>
     </div>
 
@@ -40,13 +40,13 @@
         <div class="col-span-1 md:col-span-2">
             <x-wire-input label="{{ __('Email') }}" name="email"
                 placeholder="{{ __('Please insert this information: :name', ['name' => __('Email')]) }}"
-                value="{{ old('email', @$customer->email) }}" required />
+                value="{{ old('email', @$customer->email) }}" />
         </div>
 
         <div class="col-span-1 md:col-span-2">
             <x-wire-input label="{{ __('Phone') }}" name="phone"
                 placeholder="{{ __('Please insert this information: :name', ['name' => __('Phone')]) }}"
-                value="{{ old('phone', @$customer->phone) }}" required />
+                value="{{ old('phone', @$customer->phone) }}" />
         </div>
     </div>
 </div>
