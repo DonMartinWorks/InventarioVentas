@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Identity;
 
 class CustomerController extends Controller
 {
@@ -22,7 +23,9 @@ class CustomerController extends Controller
      */
     public function create(): View
     {
-        return view('admin.management.customers.create');
+        $identities = Identity::orderBy('name', 'ASC')->get();
+
+        return view('admin.management.customers.create', compact('identities'));
     }
 
     /**
@@ -38,7 +41,9 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer): View
     {
-        return view('admin.management.customers.edit', compact('customer'));
+        $identities = Identity::orderBy('name', 'ASC')->get();
+
+        return view('admin.management.customers.edit', compact('customer', 'identities'));
     }
 
     /**
