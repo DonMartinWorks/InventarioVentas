@@ -335,6 +335,7 @@
     "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.": "La :attribute debe tener al menos :length caracteres y contener por lo menos una letra mayúscula, un número y un carácter especial.",
     "The :attribute must be at least :length characters and contain at least one uppercase character.": "La :attribute debe tener al menos :length caracteres y contener por lo menos una letra mayúscula.",
     "The :attribute must be at least :length characters.": "La :attribute debe tener al menos :length caracteres.",
+    "The customer cannot be deleted because he has quotes or sales associated with him.": "No se puede eliminar el cliente porque tiene cotizaciones o ventas asociadas a él.",
     "The given data was invalid.": "Los datos proporcionados no son válidos.",
     "The password is incorrect.": "La contraseña es incorrecta.",
     "The product cannot be deleted because it has no purchase orders or any associated quotes.": "El producto no se puede eliminar porque no tiene órdenes de compra o alguna cotizacion asociada.",

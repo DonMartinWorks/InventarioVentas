@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
 
@@ -91,6 +92,22 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        if ($customer->quotes()->exists() || $customer->sales()->exists()) {
+            $this->errorNotification('Error!', 'The customer cannot be deleted because he has quotes or sales associated with him.');
+        }
+
+        try {
+            $customer->delete();
+
+            $this->deletedNotification($customer->name);
+
+            return redirect()->route('admin.customers.index');
+        } catch (\Exception $e) {
+            // Log the error to Laravel's log file
+            Log::error('Error deleting :name', ['name' => $customer->name . ' ' . $e->getMessage()]);
+
+            // Return an error response to the AJAX request
+            return response(['status' => 'error', 'message' => __('Failed to delete :name. Please try again later.', ['name' => __('Customer')])], 500);
+        }
     }
 }
