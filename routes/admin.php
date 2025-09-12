@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Management\CategoryController as Category;
 use App\Http\Controllers\Admin\Management\CustomerController as Customer;
 use App\Http\Controllers\Admin\Management\SupplierController as Supplier;
 use App\Http\Controllers\Admin\Management\ProductController as Product;
+use App\Http\Controllers\Admin\Management\WarehouseController as Warehouse;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,5 @@ Route::post('/products/{product}/dropzone', [Product::class, 'dropzone'])->name(
 Route::resource('/customers', Customer::class)->except('show');
 
 Route::resource('/suppliers', Supplier::class)->except('show');
+
+Route::resource('/warehouses', Warehouse::class)->except('show');

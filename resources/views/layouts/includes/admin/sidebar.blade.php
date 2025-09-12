@@ -35,6 +35,13 @@
             'route' => route('admin.suppliers.index'),
             'active' => request()->routeIs('admin.suppliers.*'),
         ],
+
+        [
+            'name' => __('Warehouses'),
+            'icon' => 'fa-solid fa-warehouse',
+            'route' => route('admin.warehouses.index'),
+            'active' => request()->routeIs('admin.warehouses.*'),
+        ],
     ];
 @endphp
 
