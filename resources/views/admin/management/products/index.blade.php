@@ -32,7 +32,7 @@
         <x-forms.title-header createRoute="admin.products.create" modelName="Products" />
     </x-slot>
 
-    <section class="mt-8">
+    <section>
         @livewire('admin.datatables.product-datatable')
     </section>
 

@@ -14,7 +14,7 @@
         <x-forms.title-header createRoute="admin.categories.create" modelName="Categories" />
     </x-slot>
 
-    <section class="mt-8">
+    <section>
         @livewire('admin.datatables.category-datatable')
     </section>
 
