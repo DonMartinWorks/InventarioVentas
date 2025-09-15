@@ -13,6 +13,8 @@ class WarehouseDatatable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+
+        $this->setDefaultSort('name', 'DESC');
     }
 
     public function columns(): array

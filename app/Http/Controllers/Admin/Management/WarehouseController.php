@@ -6,9 +6,12 @@ use App\Models\Warehouse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\SweetAlertNotifications;
 
 class WarehouseController extends Controller
 {
+    use SweetAlertNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +33,17 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:150', 'min:2', 'unique:warehouses,name'],
+            'location' => ['nullable', 'string', 'max:300']
+        ]);
+
+        $warehouse = Warehouse::create($data);
+
+        # Toast Message
+        $this->createdNotification(__('Warehouse'));
+
+        return redirect()->route('admin.warehouses.edit', $warehouse);
     }
 
     /**

@@ -15,13 +15,13 @@ class WarehouseSeeder extends Seeder
     {
         Warehouse::create([
             'name' => 'Almacén Principal',
-            'location' => fake()->address() . ' ' . fake()->country()
+            'location' => fake()->address() . ', ' . fake()->country()
         ]);
 
         for ($i = 1; $i <= 3; $i++) {
             Warehouse::create([
                 'name' => 'Almacén N°' . ' ' . $i . ': ' . fake()->sentence(3),
-                'location' => fake()->address() . ' ' . fake()->country()
+                'location' => fake()->address() . ', ' . fake()->country()
             ]);
         }
     }
