@@ -15,7 +15,7 @@
     </x-slot>
 
     <section>
-        componente warehouses table
+        @livewire('admin.datatables.warehouse-datatable')
     </section>
 
     @push('js')

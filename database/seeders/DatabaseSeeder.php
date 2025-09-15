@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use Database\Seeders\Management\CategorySeeder;
 use Database\Seeders\Management\IdentitySeeder;
 use Database\Seeders\Management\ProductSeeder;
+use Database\Seeders\Management\WarehouseSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -51,7 +52,8 @@ class DatabaseSeeder extends Seeder
             AuthenticatedUserSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
-            IdentitySeeder::class
+            IdentitySeeder::class,
+            WarehouseSeeder::class,
         ]);
 
         Customer::factory(40)->create();
