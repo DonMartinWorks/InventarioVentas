@@ -6,6 +6,7 @@ use App\Models\Warehouse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
 
 class WarehouseController extends Controller
@@ -31,7 +32,7 @@ class WarehouseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:150', 'min:2', 'unique:warehouses,name'],
@@ -57,9 +58,19 @@ class WarehouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Warehouse $warehouse)
+    public function update(Request $request, Warehouse $warehouse): RedirectResponse
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100', 'min:2', 'unique:warehouses,name,' . $warehouse->id],
+            'location' => ['nullable', 'string', 'max:300']
+        ]);
+
+        $warehouse->update($data);
+
+        # Toast Message
+        $this->updatedNotification($request->name);
+
+        return redirect()->route('admin.warehouses.index');
     }
 
     /**
