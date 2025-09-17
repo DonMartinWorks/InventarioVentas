@@ -6,6 +6,7 @@ use App\Models\Warehouse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use App\Traits\SweetAlertNotifications;
 
@@ -78,6 +79,18 @@ class WarehouseController extends Controller
      */
     public function destroy(Warehouse $warehouse)
     {
-        //
+        try {
+            $warehouse->delete();
+
+            $this->deletedNotification($warehouse->name);
+
+            return redirect()->route('admin.warehouses.index');
+        } catch (\Exception $e) {
+            // Log the error to Laravel's log file
+            Log::error('Error deleting :name', ['name' => $warehouse->name . ' ' . $e->getMessage()]);
+
+            // Return an error response to the AJAX request
+            return response(['status' => 'error', 'message' => __('Failed to delete :name. Please try again later.', ['name' => __('Warehouse')])], 500);
+        }
     }
 }

@@ -9,7 +9,7 @@
         <div class="col-span-1 md:col-span-3">
             <x-wire-input label="{{ __('Location') }}" name="location"
                 placeholder="{{ __('Please insert this information: :name', ['name' => __('Location')]) }}"
-                value="{{ old('location', @$warehouse->location) }}" required />
+                value="{{ old('location', @$warehouse->location) }}" />
         </div>
     </div>
 </div>
