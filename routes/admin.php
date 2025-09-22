@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Management\CategoryController as Category;
 use App\Http\Controllers\Admin\Management\CustomerController as Customer;
 use App\Http\Controllers\Admin\Management\SupplierController as Supplier;
 use App\Http\Controllers\Admin\Management\ProductController as Product;
+use App\Http\Controllers\Admin\Management\PurchaseOrderController as PurchaseOrder;
 use App\Http\Controllers\Admin\Management\WarehouseController as Warehouse;
 
 /*
@@ -30,14 +31,19 @@ Route::get('/', [Dashboard::class, 'index'])->name('home');
  *  MANAGEMENT SECTION ROUTES
  * ===========================
  */
-Route::resource('/categories', Category::class)->except('show');
-Route::delete('/images/{image}', [Image::class, 'destroy'])->name('image.destroy');
 
+// Inventory Section
+Route::resource('/categories', Category::class)->except('show');
 Route::resource('/products', Product::class)->except('show');
 Route::post('/products/{product}/dropzone', [Product::class, 'dropzone'])->name('products.dropzone');
+Route::resource('/warehouses', Warehouse::class)->except('show');
 
+// Purchase Section
 Route::resource('/customers', Customer::class)->except('show');
 
+// Sale Section
 Route::resource('/suppliers', Supplier::class)->except('show');
+Route::resource('/purchase-orders', PurchaseOrder::class)->only(['index', 'create']);
 
-Route::resource('/warehouses', Warehouse::class)->except('show');
+
+Route::delete('/images/{image}', [Image::class, 'destroy'])->name('image.destroy');

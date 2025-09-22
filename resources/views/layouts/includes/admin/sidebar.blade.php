@@ -42,7 +42,7 @@
         [
             'name' => __('Purchases'),
             'icon' => 'fa-solid fa-cart-shopping',
-            'active' => request()->routeIs(['admin.suppliers.*']),
+            'active' => request()->routeIs(['admin.suppliers.*', 'admin.purchase-orders.*']),
             'submenu' => [
                 [
                     'name' => __('Suppliers'),
@@ -53,8 +53,9 @@
 
                 [
                     'name' => __('Purchase Orders'),
-                    'route' => '',
-                    'active' => false,
+                    'icon' => 'fa-solid fa-file-invoice-dollar',
+                    'route' => route('admin.purchase-orders.index'),
+                    'active' => request()->routeIs('admin.purchase-orders.*'),
                 ],
 
                 [
