@@ -7,7 +7,7 @@
 
     [
         'name' => __('Purchase Orders'),
-        'url' => route('admin.purchase-orders.index')
+        'url' => route('admin.purchase-orders.index'),
     ],
 
     [
@@ -15,9 +15,11 @@
     ],
 ]">
     <x-wire-card>
-        <h2 class="text-2xl/7 font-bold text-gray-700 sm:truncate sm:text-3xl sm:tracking-tight md:mb-8 mb-3">
+        <h2 class="text-2xl/7 font-bold text-gray-700 sm:truncate sm:text-3xl sm:tracking-tight">
             {{ __('Create :name', ['name' => __('Purchase Order')]) }}</h2>
-
-            <!-- TODO: form -->
     </x-wire-card>
+
+    <div class="mt-4">
+        @livewire('admin.purchase-order.purchase-order-create')
+    </div>
 </x-admin-layout>
