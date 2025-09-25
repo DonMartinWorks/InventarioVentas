@@ -27,18 +27,42 @@
                 option-value="id" class="flex-1" />
 
             <div class="flex space-x-4">
-                {{-- Supplier --}}
+                {{-- Product --}}
                 <x-wire-select label="{{ __('Product') }}" wire:model="product_id" :async-data="[
                     'api' => route('api.products.index'),
                     'method' => 'POST',
-                ]"
-                    option-label="name" option-value="id" class="flex-1" />
+                ]" option-label="name"
+                    option-value="id" class="flex-1" />
 
                 <div class="flex shrink-0">
                     <x-wire-button type="submit" class="mt-6.5" light gray label="{{ __('Save') }}"
                         right-icon="check" flat interaction:solid="positive" />
                 </div>
             </div>
+
+            {{-- Table --}}
+            <table class="w-full text-sm text-left">
+                <thead>
+                    <tr class="text-gray-700 border-y bg-blue-50">
+                        <th class="py-2 px-4">{{ __('Product') }}</th>
+                        <th class="py-2 px-4">{{ __('Quantity') }}</th>
+                        <th class="py-2 px-4">{{ __('Price') }}</th>
+                        <th class="py-2 px-4">{{ __('Subtotal') }}</th>
+                        <th class="py-2 px-4"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse ($products as $product)
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-gray-700 font-semibold py-4">
+                                {{ __('There are no added products!') }}
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </form>
     </x-wire-card>
 </div>
