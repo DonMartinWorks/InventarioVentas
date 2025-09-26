@@ -35,7 +35,7 @@
                     option-value="id" class="flex-1" />
 
                 <div class="flex shrink-0">
-                    <x-wire-button type="submit" class="mt-6.5" light gray label="{{ __('Save') }}"
+                    <x-wire-button wire:click="addProduct" class="mt-6.5" light gray label="{{ __('Save') }}"
                         right-icon="check" flat interaction:solid="positive" />
                 </div>
             </div>
@@ -54,6 +54,15 @@
 
                 <tbody>
                     @forelse ($products as $product)
+                        <tr class="border-b">
+                            <td class="px-4 py-1">{{ $product['name'] }}</td>
+                            <td class="px-4 py-1">{{ $product['quantity'] }}</td>
+                            <td class="px-4 py-1">{{ $product['price'] }}</td>
+                            <td class="px-4 py-1">{{ $product['quantity'] * $product['price'] }}</td>
+                            <td class="px-4 py-1">
+                                <x-wire-mini-button rounded outline icon="trash" negative />
+                            </td>
+                        </tr>
                     @empty
                         <tr>
                             <td colspan="5" class="text-center text-gray-700 font-semibold py-4">

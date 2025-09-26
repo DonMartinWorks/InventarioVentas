@@ -5,3 +5,9 @@
         );
     @endif
 </script>
+
+<script>
+    Livewire.on('swal', (data) => {
+        Swal.fire(data[0]);
+    });
+</script>

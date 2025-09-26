@@ -92,16 +92,17 @@ trait SweetAlertNotifications
      * @param string $title Error message title.
      * @param string $text Error message text.
      * @param int|null $timer Timer duration, if different from the default.
+     * @param bool $showConfirmButton Whether to show the confirm button.
      * @return void
      */
-    protected function errorNotification(string $title = 'Error!', string $text = 'An unexpected error occurred.', ?int $timer = 5000): void
+    protected function errorNotification(string $title = 'Error!', string $text = 'An unexpected error occurred.', ?int $timer = 5000, bool $showConfirmButton = true): void
     {
         $this->sendSweetAlert(
             'error',
             __($title),
             __($text),
             $timer,
-            true // Errors usually require a confirm button
+            $showConfirmButton
         );
     }
 }

@@ -4,6 +4,7 @@
     ":attribute format is not a valid phone number.": ":attribute no es un formato válido para este número de teléfono.",
     ":name created!": "¡:name creado!",
     ":name deleted!": "¡:name eliminado!",
+    ":name duplicated!": "¡:name duplicado!",
     ":name Exists!": "¡:name Existe!",
     ":name has been created": ":name ha sido creado",
     ":name has been deleted": ":name ha sido eliminado",
@@ -23,6 +24,7 @@
     "Add a new team member to your team, allowing them to collaborate with you.": "Agregue un nuevo miembro a su equipo, permitiéndole colaborar con usted.",
     "Add additional security to your account using two factor authentication.": "Agregue seguridad adicional a su cuenta mediante la autenticación de dos factores.",
     "Add Team Member": "Añadir un nuevo miembro al equipo",
+    "Added": "Agregado",
     "Added.": "Añadido.",
     "Address": "Dirección",
     "Admin": "Administrar",
@@ -370,6 +372,7 @@
     "The response is not a view.": "La respuesta no es una vista.",
     "The supplier cannot be deleted because he has purchase or orders associated with him.": "No se puede eliminar el proveedor porque tiene compras o pedidos asociados a él.",
     "The team's name and owner information.": "Nombre del equipo e información del propietario.",
+    "There are no added products!": "¡No hay productos añadidos!",
     "These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.": "Estas personas han sido invitadas a su equipo y se les ha enviado un correo electrónico de invitación. Pueden unirse al equipo aceptando la invitación por correo electrónico.",
     "This action is unauthorized.": "Esta acción no está autorizada.",
     "This device": "Este dispositivo",
@@ -434,6 +437,5 @@
     "You may not delete your personal team.": "No se puede borrar su equipo personal.",
     "You may not leave a team that you created.": "No se puede abandonar un equipo que usted creó.",
     "You will not be able to revert this!": "No podrás revertir esta acción",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
-    "There are no added products!": "¡No hay productos añadidos!"
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
 }
