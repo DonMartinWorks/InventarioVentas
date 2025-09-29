@@ -1,4 +1,10 @@
-<div>
+<div x-data="{
+    products: @entangle('products'),
+
+    removeProduct(index) {
+        this.products.splice(index, 1);
+    }
+}">
     <x-wire-card>
         <form wire:submit="save" class="space-y-4">
             <div class="grid grid-cols-4 gap-4">
@@ -53,23 +59,35 @@
                 </thead>
 
                 <tbody>
-                    @forelse ($products as $product)
+                    <template x-for="(product, index) in products" :key="product.id">
                         <tr class="border-b">
-                            <td class="px-4 py-1">{{ $product['name'] }}</td>
-                            <td class="px-4 py-1">{{ $product['quantity'] }}</td>
-                            <td class="px-4 py-1">{{ $product['price'] }}</td>
-                            <td class="px-4 py-1">{{ $product['quantity'] * $product['price'] }}</td>
+                            <td class="px-4 py-1" x-text="product.name"></td>
+
                             <td class="px-4 py-1">
-                                <x-wire-mini-button rounded outline icon="trash" negative />
+                                <x-wire-input x-model="product.quantity" type="number" class="w-20" min="0" />
+                            </td>
+
+                            <td class="px-4 py-1">
+                                <x-wire-input x-model="product.price" type="number" class="w-36" step="0.01"
+                                    min="0" />
+                            </td>
+
+                            <td class="px-4 py-1" x-text="(product.quantity * product.price).toFixed(2)"></td>
+
+                            <td class="px-4 py-1">
+                                <x-wire-mini-button x-on:click="removeProduct(index)" rounded outline icon="trash"
+                                    negative />
                             </td>
                         </tr>
-                    @empty
+                    </template>
+
+                    <template x-if="products.length === 0">
                         <tr>
                             <td colspan="5" class="text-center text-gray-700 font-semibold py-4">
                                 {{ __('There are no added products!') }}
                             </td>
                         </tr>
-                    @endforelse
+                    </template>
                 </tbody>
             </table>
         </form>

@@ -52,7 +52,7 @@ class PurchaseOrderCreate extends Component
         if ($existing) {
             $this->dispatch('swal', [
                 'icon' => 'warning',
-                'title' => __('Added'),
+                'title' => __('Duplicated'),
                 'text' => __(':name duplicated!', ['name' => $product->name])
             ]);
 
