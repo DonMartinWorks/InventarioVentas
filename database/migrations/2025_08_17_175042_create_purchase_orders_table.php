@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->integer('voucher_type');
             $table->string('series');
             $table->integer('correlative');
-            $table->timestamp('date');
+            $table->timestamp('date')->useCurrent();
             $table->decimal('total', 12, 2)->default(0);
-            $table->string('observation')->nullable();
+            $table->string('observations', 500)->nullable();
             $table->timestamps();
         });
     }

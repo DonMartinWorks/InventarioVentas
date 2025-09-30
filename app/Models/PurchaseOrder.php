@@ -20,7 +20,7 @@ class PurchaseOrder extends Model
         'correlative',
         'date',
         'total',
-        'observation'
+        'observations'
     ];
 
     /**

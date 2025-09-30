@@ -1,8 +1,21 @@
 <div x-data="{
     products: @entangle('products'),
+    total: @entangle('total'),
 
     removeProduct(index) {
         this.products.splice(index, 1);
+    },
+
+    init() {
+        this.$watch('products', (newProducts) => {
+            let total = 0;
+
+            newProducts.forEach(product => {
+                total += product.quantity * product.price;
+            });
+
+            this.total = total;
+        });
     }
 }">
     <x-wire-card>
@@ -90,6 +103,22 @@
                     </template>
                 </tbody>
             </table>
+
+            {{-- Total --}}
+            <section class="flex items-center space-x-4 mt-6">
+                <x-label for="observation">{{ __('Observations') }}</x-label>
+                <x-wire-textarea class="flex-1" id="observation" wire:model="observations" />
+
+                <div>
+                    {{ __('Total') }}&#58;&#160;&#36;<span x-text="total.toFixed(2)"
+                        class="text-semibold text-gray-600 text-xl"></span>
+                </div>
+            </section>
+
+            <div class="flex justify-end py-4">
+                <x-wire-button type="submit" right-icon="check" outline secondary interaction:solid="positive"
+                    label="{{ __('Save') }}" rounded="lg" />
+            </div>
         </form>
     </x-wire-card>
 </div>
