@@ -34,6 +34,31 @@ class PurchaseOrderCreate extends Component
      */
     public $products = [];
 
+    public function boot()
+    {
+        // Checking if are errors
+        $this->withValidator(function ($validator) {
+            if ($validator->fails()) {
+                $errors = $validator->errors()->toArray();
+
+                $html = "<ul class='text-left' style='text-red'>";
+
+                foreach ($errors as $error) {
+                    $html .= "<li>{$error[0]}</li>";
+                }
+
+                $html .= "</ul>";
+
+                // Dispatch success notification via SweetAlert
+                $this->dispatch('swal', [
+                    'icon' => 'error',
+                    'title' => __('Validation Error'),
+                    'html' => $html
+                ]);
+            }
+        });
+    }
+
     /**
      * Adds a selected product to the temporary products list.
      * It validates the product ID and checks for duplicates.
