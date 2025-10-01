@@ -22,8 +22,7 @@
         <form wire:submit="save" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {{-- Voucher Type --}}
-                {{-- <x-wire-native-select label="{{ __('Voucher Type') }}" wire:model="voucher_type" required> --}}
-                <x-wire-native-select label="{{ __('Voucher Type') }}" wire:model="voucher_type">
+                <x-wire-native-select label="{{ __('Voucher Type') }}" wire:model="voucher_type" required>
                     <option value="" selected disabled>{{ __('Select') }}</option>
                     <option value="1">{{ __('Receipt') }}</option> {{-- Boleta --}}
                     <option value="2">{{ __('Invoice') }}</option> {{-- Factura --}}
@@ -44,8 +43,7 @@
                 'api' => route('api.suppliers.index'),
                 'method' => 'POST',
             ]" option-label="name"
-                {{-- option-value="id" class="flex-1" required /> --}}
-                option-value="id" class="flex-1" />
+                option-value="id" class="flex-1" required />
 
             <div class="lg:flex lg:space-x-4">
                 {{-- Product --}}
@@ -53,7 +51,7 @@
                     'api' => route('api.products.index'),
                     'method' => 'POST',
                 ]" option-label="name"
-                    option-value="id" class="flex-1" />
+                    option-value="id" class="flex-1" required />
 
                 <div class="flex shrink-0">
                     <x-wire-button wire:click="addProduct" spinner="addProduct" class="w-full lg:mt-6.5 mt-4" light gray

@@ -34,22 +34,27 @@ class PurchaseOrderCreate extends Component
      */
     public $products = [];
 
+    /**
+     * Livewire lifecycle hook: Runs immediately after a component is instantiated.
+     * Used here to register a validation failure callback to display errors via SweetAlert.
+     */
     public function boot()
     {
-        // Checking if are errors
+        // Register a callback to execute if validation fails
         $this->withValidator(function ($validator) {
             if ($validator->fails()) {
                 $errors = $validator->errors()->toArray();
 
                 $html = "<ul class='text-left' style='text-red'>";
 
+                // Iterate through validation errors to format them into an HTML list
                 foreach ($errors as $error) {
                     $html .= "<li>{$error[0]}</li>";
                 }
 
                 $html .= "</ul>";
 
-                // Dispatch success notification via SweetAlert
+                // Dispatch error notification via SweetAlert
                 $this->dispatch('swal', [
                     'icon' => 'error',
                     'title' => __('Validation Error'),
