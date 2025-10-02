@@ -23,6 +23,10 @@ class PurchaseOrder extends Model
         'observations'
     ];
 
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+
     /**
      * Get the supplier that owns the PurchaseOrder
      *
