@@ -42,7 +42,7 @@
         [
             'name' => __('Purchases'),
             'icon' => 'fa-solid fa-cart-shopping',
-            'active' => request()->routeIs(['admin.suppliers.*', 'admin.purchase-orders.*']),
+            'active' => request()->routeIs(['admin.suppliers.*', 'admin.purchase-orders.*', 'admin.purchases.*']),
             'submenu' => [
                 [
                     'name' => __('Suppliers'),
@@ -60,8 +60,9 @@
 
                 [
                     'name' => __('Purchases'),
-                    'route' => '',
-                    'active' => false,
+                    'icon' => 'fa-solid fa-magnifying-glass-dollar',
+                    'route' => route('admin.purchases.index'),
+                    'active' => request()->routeIs('admin.purchases.*'),
                 ],
             ],
         ],

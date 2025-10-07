@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Admin\Management;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Models\PurchaseOrder;
 use App\Http\Controllers\Controller;
 
-class PurchaseOrderController extends Controller
+class PurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        return view('admin.management.purchase_orders.index');
+        return view('admin.management.purchases.index');
     }
 
     /**
@@ -22,6 +21,6 @@ class PurchaseOrderController extends Controller
      */
     public function create(): View
     {
-        return view('admin.management.purchase_orders.create');
+        return view('admin.management.purchases.create');
     }
 }
