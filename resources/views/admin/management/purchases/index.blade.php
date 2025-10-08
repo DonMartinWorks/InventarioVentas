@@ -11,11 +11,11 @@
     ],
 ]">
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.purchase-orders.create" modelName="Purchases" />
+        <x-forms.title-header createRoute="admin.purchases.create" modelName="Purchases" />
     </x-slot>
 
     <section>
-        @livewire('admin.datatables.purchase-order-datatable')
+        {{-- @livewire('admin.datatables.purchase-order-datatable') --}}
     </section>
 
     @push('js')
