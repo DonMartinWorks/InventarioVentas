@@ -16,16 +16,16 @@ class PurchaseCreate extends Component
     use SweetAlertNotifications;
 
     // Public properties that hold form data
-    public $product_id;             // ID of the product currently being added
-    public $supplier_id;            // ID of the selected supplier
-    public $warehouse_id;           // ID of the selected warehouse
-    public $voucher_type = '';      // Type of voucher (e.g., '1' for Invoice, '2' for Receipt)
-    public $series = '';        // Default series code for the Purchase Order
-    public $correlative;            // The sequential correlative number for the PO
-    public $date;                   // The date of the Purchase Order
-    public $purchase_order_id;      // ID of the Purchase Order
-    public $total = 0;              // Calculated total amount of the Purchase Order
-    public $observations = null;    // Optional notes or observations
+    public $product_id;            // ID of the product currently being added
+    public $supplier_id;           // ID of the selected supplier
+    public $warehouse_id;          // ID of the selected warehouse
+    public $voucher_type = '';     // Type of voucher (e.g., '1' for Invoice, '2' for Receipt)
+    public $series = '';           // Default series code for the Purchase Order
+    public $correlative;           // The sequential correlative number for the PO
+    public $date;                  // The date of the Purchase Order
+    public $purchase_order_id;     // ID of the Purchase Order
+    public $total = 0;             // Calculated total amount of the Purchase Order
+    public $observations = null;   // Optional notes or observations
 
     /**
      * Array to hold the list of products added to the purchase order.
@@ -37,7 +37,7 @@ class PurchaseCreate extends Component
      * Livewire lifecycle hook: Runs immediately after a component is instantiated.
      * Used here to register a validation failure callback to display errors via SweetAlert.
      */
-    public function boot()
+    public function boot(): void
     {
         // Register a callback to execute if validation fails
         $this->withValidator(function ($validator) {
@@ -67,7 +67,7 @@ class PurchaseCreate extends Component
      * Adds a selected product to the temporary products list.
      * It validates the product ID and checks for duplicates.
      */
-    public function addProduct()
+    public function addProduct(): void
     {
         // Validate that a product ID has been selected and exists in the database
         $this->validate([
@@ -162,19 +162,32 @@ class PurchaseCreate extends Component
         return redirect()->route('admin.purchases.index');
     }
 
-    public function updated(string $property, ?string $value)
+    /**
+     * Livewire hook: Runs when a public property is updated.
+     * Used here to load data from an existing Purchase Order if 'purchase_order_id' changes.
+     *
+     * @param string $property The name of the property that was updated.
+     * @param ?string $value The new value of the property.
+     * @return void
+     */
+    public function updated(string $property, ?string $value): void
     {
+        // Check if the updated property is the purchase_order_id
         if ($property == 'purchase_order_id') {
+            // Find the Purchase Order record using the provided ID
             $purchaseOrder = PurchaseOrder::find($value);
 
             if ($purchaseOrder) {
+                // If a Purchase Order is found, populate the form fields with its data
                 $this->voucher_type = $purchaseOrder->voucher_type;
                 $this->supplier_id = $purchaseOrder->supplier_id;
 
+                // Map the related products from the Purchase Order to the component's $products array
                 $this->products = $purchaseOrder->products->map(function ($product) {
                     return [
                         'id' => $product->id,
                         'name' => $product->name,
+                        // Retrieve quantity, price, and subtotal from the pivot table relationship
                         'quantity' => $product->pivot->quantity,
                         'price' => $product->pivot->price,
                         'subtotal' => $product->pivot->subtotal,
@@ -186,6 +199,8 @@ class PurchaseCreate extends Component
 
     /**
      * Renders the view for the component.
+     *
+     * @return \Illuminate\View\View
      */
     public function render(): View
     {
