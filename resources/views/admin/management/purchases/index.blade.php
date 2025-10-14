@@ -15,7 +15,7 @@
     </x-slot>
 
     <section>
-        {{-- @livewire('admin.datatables.purchase-order-datatable') --}}
+        @livewire('admin.datatables.purchase-datatable')
     </section>
 
     @push('js')

@@ -30,36 +30,53 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     {{-- Series --}}
-                    <x-wire-input label="{{ __('Series') }}" wire:model="series" disabled></x-wire-input>
+                    <x-wire-input label="{{ __('Series') }}" wire:model="series"></x-wire-input>
 
                     {{-- Correlative --}}
-                    <x-wire-input label="{{ __('Correlative') }}" wire:model="correlative" disabled></x-wire-input>
+                    <x-wire-input label="{{ __('Correlative') }}" wire:model="correlative"></x-wire-input>
                 </div>
 
                 {{-- Date --}}
                 <x-wire-input type="date" label="{{ __('Date') }}" wire:model="date"></x-wire-input>
+
+                {{-- Purchase Order --}}
+                <x-wire-select label="{{ __('Purchase Order') }}" wire:model.live="purchase_order_id" :async-data="[
+                    'api' => route('api.purchase-orders.index'),
+                    'method' => 'POST',
+                ]"
+                    option-label="name" option-value="id" option-description="description" class="flex-1" required />
+
+                <div class="col-span-2">
+                    {{-- Supplier --}}
+                    <x-wire-select label="{{ __('Supplier') }}" wire:model="supplier_id" :async-data="[
+                        'api' => route('api.suppliers.index'),
+                        'method' => 'POST',
+                    ]"
+                        option-label="name" option-value="id" class="flex-1" required />
+                </div>
+
+                <div class="col-span-2">
+                    {{-- Warehouse --}}
+                    <x-wire-select label="{{ __('Warehouse') }}" wire:model="warehouse_id" :async-data="[
+                        'api' => route('api.warehouses.index'),
+                        'method' => 'POST',
+                    ]"
+                        option-value="id" option-label="name" option-description="description" class="flex-1"
+                        required />
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                {{-- Supplier --}}
-                <x-wire-select label="{{ __('Supplier') }}" wire:model="supplier_id" :async-data="[
-                    'api' => route('api.suppliers.index'),
+            <div class="lg:flex lg:space-x-4">
+                {{-- Product --}}
+                <x-wire-select label="{{ __('Product') }}" wire:model="product_id" :async-data="[
+                    'api' => route('api.products.index'),
                     'method' => 'POST',
                 ]"
                     option-label="name" option-value="id" class="flex-1" required />
 
-                <div class="lg:flex lg:space-x-4">
-                    {{-- Product --}}
-                    <x-wire-select label="{{ __('Product') }}" wire:model="product_id" :async-data="[
-                        'api' => route('api.products.index'),
-                        'method' => 'POST',
-                    ]"
-                        option-label="name" option-value="id" class="flex-1" required />
-
-                    <div class="flex shrink-0">
-                        <x-wire-button wire:click="addProduct" spinner="addProduct" class="w-full lg:mt-6.5 mt-4" light
-                            gray label="{{ __('Save') }}" right-icon="check" flat interaction:solid="positive" />
-                    </div>
+                <div class="flex shrink-0">
+                    <x-wire-button wire:click="addProduct" spinner="addProduct" class="w-full lg:mt-6.5 mt-4" light gray
+                        label="{{ __('Save') }}" right-icon="check" flat interaction:solid="positive" />
                 </div>
             </div>
 

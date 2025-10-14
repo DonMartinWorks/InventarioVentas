@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Purchase;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Purchase;
+use App\Models\PurchaseOrder;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use App\Traits\SweetAlertNotifications;
@@ -15,14 +16,16 @@ class PurchaseCreate extends Component
     use SweetAlertNotifications;
 
     // Public properties that hold form data
-    public $product_id;         // ID of the product currently being added
-    public $supplier_id;        // ID of the selected supplier
-    public $voucher_type = '';  // Type of voucher (e.g., '1' for Invoice, '2' for Receipt)
-    public $series = 'OC01';    // Default series code for the Purchase Order
-    public $correlative;        // The sequential correlative number for the PO
-    public $date;               // The date of the Purchase Order
-    public $total = 0;          // Calculated total amount of the Purchase Order
-    public $observations = null;// Optional notes or observations
+    public $product_id;             // ID of the product currently being added
+    public $supplier_id;            // ID of the selected supplier
+    public $warehouse_id;           // ID of the selected warehouse
+    public $voucher_type = '';      // Type of voucher (e.g., '1' for Invoice, '2' for Receipt)
+    public $series = '';        // Default series code for the Purchase Order
+    public $correlative;            // The sequential correlative number for the PO
+    public $date;                   // The date of the Purchase Order
+    public $purchase_order_id;      // ID of the Purchase Order
+    public $total = 0;              // Calculated total amount of the Purchase Order
+    public $observations = null;    // Optional notes or observations
 
     /**
      * Array to hold the list of products added to the purchase order.
@@ -112,8 +115,12 @@ class PurchaseCreate extends Component
         // Validate all necessary fields for the Purchase Order header and product lines
         $this->validate([
             'voucher_type' => ['required', 'in:1,2'],
+            'series' => ['required', 'string', 'max:10'],
+            'correlative' => ['required', 'string', 'max:10'],
             'date' => ['nullable', 'date'],
+            'purchase_order_id' => ['nullable', 'exists:purchase_orders,id'],
             'supplier_id' => ['required', 'exists:suppliers,id'],
+            'warehouse_id' => ['required', 'exists:warehouses,id'],
             'total' => ['required', 'numeric', 'min:0'],
             'observations' => ['nullable', 'string', 'max:500'],
             'products' => ['required', 'array', 'min:1'], // Must have at least one product
@@ -123,19 +130,21 @@ class PurchaseCreate extends Component
         ]);
 
         // Create the Purchase Order record in the database
-        $purchaseOrder = Purchase::create([
+        $purchase = Purchase::create([
             'voucher_type' => $this->voucher_type,
-            'series' => $this->series,
-            'correlative' => $this->correlative,
+            'series' => Str::upper($this->series),
+            'correlative' => Str::upper($this->correlative),
             'date' => $this->date ?? now(), // Use current date if no date is provided
+            'purchase_order_id' => $this->purchase_order_id,
             'supplier_id' => $this->supplier_id,
+            'warehouse_id' => $this->warehouse_id,
             'total' => $this->total,
             'observations' => $this->observations,
         ]);
 
         // Attach each product to the newly created Purchase Order using the pivot table
         foreach ($this->products as $product) {
-            $purchaseOrder->products()->attach(
+            $purchase->products()->attach(
                 $product['id'],
                 [
                     'quantity' => $product['quantity'],
@@ -147,20 +156,32 @@ class PurchaseCreate extends Component
         }
 
         // Dispatch success notification via SweetAlert
-        $this->createdNotification(__('Purchase Order'));
+        $this->createdNotification(__('Purchase'));
 
         // Redirect the user to the Purchase Orders index page
         return redirect()->route('admin.purchases.index');
     }
 
-    /**
-     * Livewire lifecycle hook: Runs once immediately after the component is instantiated.
-     * Used here to initialize the correlative number.
-     */
-    public function mount()
+    public function updated(string $property, ?string $value)
     {
-        // Get the maximum existing correlative number and increment it by 1 for the new PO
-        $this->correlative = Purchase::max('correlative') + 1;
+        if ($property == 'purchase_order_id') {
+            $purchaseOrder = PurchaseOrder::find($value);
+
+            if ($purchaseOrder) {
+                $this->voucher_type = $purchaseOrder->voucher_type;
+                $this->supplier_id = $purchaseOrder->supplier_id;
+
+                $this->products = $purchaseOrder->products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'quantity' => $product->pivot->quantity,
+                        'price' => $product->pivot->price,
+                        'subtotal' => $product->pivot->subtotal,
+                    ];
+                })->toArray();
+            }
+        }
     }
 
     /**

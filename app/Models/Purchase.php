@@ -22,7 +22,12 @@ class Purchase extends Model
         'supplier_id',
         'warehouse_id',
         'total',
-        'observation',
+        'observations',
+    ];
+
+    protected $casts = [
+        'date' => 'datetime',
+        'total' => 'decimal:2'
     ];
 
     /**
