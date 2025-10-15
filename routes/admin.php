@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Management\SupplierController as Supplier;
 use App\Http\Controllers\Admin\Management\ProductController as Product;
 use App\Http\Controllers\Admin\Management\PurchaseController as Purchase;
 use App\Http\Controllers\Admin\Management\PurchaseOrderController as PurchaseOrder;
+use App\Http\Controllers\Admin\Management\QuoteController as Quote;
 use App\Http\Controllers\Admin\Management\WarehouseController as Warehouse;
 
 /*
@@ -46,6 +47,7 @@ Route::resource('/customers', Customer::class)->except('show');
 Route::resource('/suppliers', Supplier::class)->except('show');
 Route::resource('/purchase-orders', PurchaseOrder::class)->only(['index', 'create']);
 Route::resource('/purchases', Purchase::class)->only(['index', 'create']);
+Route::resource('/quotes', Quote::class)->only(['index', 'create']);
 
 
 Route::delete('/images/{image}', [Image::class, 'destroy'])->name('image.destroy');

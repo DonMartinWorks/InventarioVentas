@@ -70,7 +70,7 @@
         [
             'name' => __('Sales'),
             'icon' => 'fa-solid fa-cash-register',
-            'active' => request()->routeIs('admin.customers.*'),
+            'active' => request()->routeIs(['admin.customers.*', 'admin.quotes.*']),
             'submenu' => [
                 [
                     'name' => __('Customers'),
@@ -81,8 +81,9 @@
 
                 [
                     'name' => __('Quotes'),
-                    'route' => '',
-                    'active' => false,
+                    'icon' => 'fas fa-search-dollar',
+                    'route' => route('admin.quotes.index'),
+                    'active' => request()->routeIs('admin.quotes.*'),
                 ],
 
                 [
