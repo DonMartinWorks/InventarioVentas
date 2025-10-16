@@ -23,6 +23,11 @@ class Quote extends Model
         'observations',
     ];
 
+    protected $casts = [
+        'date' => 'datetime',
+        'total' => 'decimal:2'
+    ];
+
     /**
      * Get the customer that owns the Quote
      *
