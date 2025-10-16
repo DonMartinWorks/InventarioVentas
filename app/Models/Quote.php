@@ -20,7 +20,7 @@ class Quote extends Model
         'date',
         'customer_id',
         'total',
-        'observation',
+        'observations',
     ];
 
     /**

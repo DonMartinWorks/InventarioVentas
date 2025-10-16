@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('correlative');
             $table->timestamp('date')->useCurrent();
             $table->decimal('total', 12, 2)->default(0);
-            $table->string('observation')->nullable();
+            $table->string('observations')->nullable();
             $table->timestamps();
         });
     }
