@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Management\ProductController as Product;
 use App\Http\Controllers\Admin\Management\PurchaseController as Purchase;
 use App\Http\Controllers\Admin\Management\PurchaseOrderController as PurchaseOrder;
 use App\Http\Controllers\Admin\Management\QuoteController as Quote;
+use App\Http\Controllers\Admin\Management\SaleController as Sale;
 use App\Http\Controllers\Admin\Management\WarehouseController as Warehouse;
 
 /*
@@ -45,9 +46,19 @@ Route::resource('/customers', Customer::class)->except('show');
 
 // Sale Section
 Route::resource('/suppliers', Supplier::class)->except('show');
+
+// Purchase Section
 Route::resource('/purchase-orders', PurchaseOrder::class)->only(['index', 'create']);
 Route::resource('/purchases', Purchase::class)->only(['index', 'create']);
+
+
+// Quote Section
 Route::resource('/quotes', Quote::class)->only(['index', 'create']);
 
+// Sale Section
+Route::resource('/sales', Sale::class)->only(['index', 'create']);
 
+/**
+ * Others
+ */
 Route::delete('/images/{image}', [Image::class, 'destroy'])->name('image.destroy');

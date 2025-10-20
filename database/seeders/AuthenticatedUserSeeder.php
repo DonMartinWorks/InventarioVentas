@@ -20,7 +20,7 @@ class AuthenticatedUserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Usuario' . ' ' . $name1,
             'email' => Str::slug($name1) . '@' . str_replace(' ', '', Str::lower(config('app.name'))) . '.com',
-            'password' => Hash::make('123'),
+            'password' => Hash::make('1234'),
             'email_verified_at' => now(),
             'remember_token' => null
         ]);
