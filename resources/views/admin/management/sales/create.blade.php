@@ -20,6 +20,6 @@
     </x-wire-card>
 
     <div class="mt-4">
-        @livewire('admin.purchase-order.purchase-order-create')
+        @livewire('admin.sale.sale-create')
     </div>
 </x-admin-layout>

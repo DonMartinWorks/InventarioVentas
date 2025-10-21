@@ -30,26 +30,26 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     {{-- Series --}}
-                    <x-wire-input label="{{ __('Series') }}" wire:model="series"></x-wire-input>
+                    <x-wire-input label="{{ __('Series') }}" wire:model="series" disabled></x-wire-input>
 
                     {{-- Correlative --}}
-                    <x-wire-input type="number" min="1" label="{{ __('Correlative') }}" wire:model="correlative"></x-wire-input>
+                    <x-wire-input type="number" min="1" label="{{ __('Correlative') }}" wire:model="correlative" disabled></x-wire-input>
                 </div>
 
                 {{-- Date --}}
                 <x-wire-input type="date" label="{{ __('Date') }}" wire:model="date"></x-wire-input>
 
-                {{-- Purchase Order --}}
-                <x-wire-select label="{{ __('Purchase Order') }}" wire:model.live="purchase_order_id" :async-data="[
-                    'api' => route('api.purchase-orders.index'),
+                {{-- Quote --}}
+                <x-wire-select label="{{ __('Quote') }}" wire:model.live="quote_id" :async-data="[
+                    'api' => route('api.quotes.index'),
                     'method' => 'POST',
                 ]"
                     option-label="name" option-value="id" option-description="description" class="flex-1" required />
 
                 <div class="col-span-2">
-                    {{-- Supplier --}}
-                    <x-wire-select label="{{ __('Supplier') }}" wire:model="supplier_id" :async-data="[
-                        'api' => route('api.suppliers.index'),
+                    {{-- Customer --}}
+                    <x-wire-select label="{{ __('Customer') }}" wire:model="customer_id" :async-data="[
+                        'api' => route('api.customers.index'),
                         'method' => 'POST',
                     ]"
                         option-label="name" option-value="id" class="flex-1" required />
@@ -131,7 +131,7 @@
             {{-- Total --}}
             <section class="flex items-center space-x-4 mt-6">
                 <x-label for="observation">{{ __('Observations') }}</x-label>
-                <x-wire-textarea class="flex-1" id="observation" wire:model="observations" />
+                <x-wire-textarea class="flex-1" id="observation" wire:model="observation" />
 
                 <div>
                     {{ __('Total') }}&#58;&#160;&#36;<span x-text="total.toFixed(2)"

@@ -3,6 +3,7 @@
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\PurchaseOrder;
+use App\Models\Quote;
 use App\Models\Supplier;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ Route::post('/warehouses', function (Request $request) {
         ->get();
 })->name('api.warehouses.index');
 
+
 Route::post('/products', function (Request $request) {
     return Product::select('id', 'name')
         ->when($request->search, function ($query, $search) {
@@ -45,6 +47,7 @@ Route::post('/products', function (Request $request) {
         ->orderBy('name', 'ASC')
         ->get();
 })->name('api.products.index');
+
 
 Route::post('/suppliers', function (Request $request) {
     return Supplier::select('id', 'name')
@@ -61,6 +64,7 @@ Route::post('/suppliers', function (Request $request) {
         ->get();
 })->name('api.suppliers.index');
 
+
 Route::post('/customers', function (Request $request) {
     return Customer::select('id', 'name')
         ->when($request->search, function ($query, $search) {
@@ -75,6 +79,7 @@ Route::post('/customers', function (Request $request) {
         ->orderBy('name', 'ASC')
         ->get();
 })->name('api.customers.index');
+
 
 Route::post('/products', function (Request $request) {
     return Product::select('id', 'name')
@@ -91,6 +96,7 @@ Route::post('/products', function (Request $request) {
         ->orderBy('name', 'ASC')
         ->get();
 })->name('api.products.index');
+
 
 Route::post('/purchase-orders', function (Request $request) {
     $purchaseOrder = PurchaseOrder::when($request->search, function ($query, $search) {
@@ -132,3 +138,45 @@ Route::post('/purchase-orders', function (Request $request) {
         ];
     });
 })->name('api.purchase-orders.index');
+
+
+Route::post('/quotes', function (Request $request) {
+    $quotes = Quote::when($request->search, function ($query, $search) {
+        $parts = explode('-', $search);
+
+        if (count($parts) == 1) {
+            $query->whereHas('customer', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('document_number', 'like', "%{$search}%");
+            });
+
+            return;
+        }
+
+        if (count($parts) == 2) {
+            $series = $parts[0];
+            $correlative = ltrim($parts[1], '0');
+
+            $query->where('series', $series)
+                ->where('correlative', 'LIKE', "%{$correlative}%");
+
+            return;
+        }
+    })
+        ->when(
+            $request->exists('selected'),
+            fn(Builder $query) => $query->whereIn('id', $request->input('selected', [])),
+            fn(Builder $query) => $query->limit(10)
+        )
+        ->with(['customer'])
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+    return $quotes->map(function ($quote) {
+        return [
+            'id' => $quote->id,
+            'name' => $quote->series . '-' . $quote->correlative,
+            'description' => $quote->customer->name . ' - ' . $quote->customer->document_number
+        ];
+    });
+})->name('api.quotes.index');

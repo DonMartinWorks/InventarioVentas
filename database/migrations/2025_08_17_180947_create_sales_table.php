@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->onDelete('CASCADE');
             $table->foreignId('warehouse_id')->constrained('warehouses')->onDelete('CASCADE');
-            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
+            $table->foreignId('quote_id')->nullable()->constrained('quotes')->onDelete('SET NULL');
             $table->integer('voucher_type');
             $table->string('series');
             $table->integer('correlative');
