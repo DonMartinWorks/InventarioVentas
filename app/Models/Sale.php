@@ -25,11 +25,15 @@ class Sale extends Model
         'observation',
     ];
 
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+
     /**
- * Get the customer that owns the Sale
- *
- * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
- */
+     * Get the customer that owns the Sale
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

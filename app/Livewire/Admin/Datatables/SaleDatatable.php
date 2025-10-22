@@ -4,18 +4,17 @@ namespace App\Livewire\Admin\Datatables;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Quote;
+use App\Models\Sale;
 use Illuminate\Database\Eloquent\Builder;
 
-class QuoteDatatable extends DataTableComponent
+
+class SaleDatatable extends DataTableComponent
 {
-    // protected $model = Quote::class;
+    protected $model = Sale::class;
 
     public function configure(): void
     {
-         $this->setPrimaryKey('id');
-
-        $this->setDefaultSort('id', 'desc');
+        $this->setPrimaryKey('id');
     }
 
     public function columns(): array
@@ -50,7 +49,7 @@ class QuoteDatatable extends DataTableComponent
             Column::make(__("Total"), "total")
                 ->sortable()
                 ->format(fn($value) => 'CLP$ ' . number_format($value, 2, ',', '.')),
-            Column::make(__("Observations"), "observations")
+            Column::make("Observations", "observation")
                 ->sortable()
                 ->deselected(),
             Column::make(__('Created at'), "created_at")
@@ -59,11 +58,17 @@ class QuoteDatatable extends DataTableComponent
                 })
                 ->sortable()
                 ->deselected(),
+            Column::make(__('Updated at'), "updated_at")
+                ->format(function ($value) {
+                    return $value->format('d/m/Y (H:i:s)');
+                })
+                ->sortable()
+                ->deselected(),
             Column::make(__("Actions"))
                 ->label(function ($row) {
                     return view(
-                        'admin.management.quotes.actions',
-                        ['quote' => $row]
+                        'admin.management.sales.actions',
+                        ['sale' => $row]
                     );
                 })
         ];
@@ -71,7 +76,7 @@ class QuoteDatatable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return Quote::query()
+        return Sale::query()
             ->with(['customer']);
     }
 }
