@@ -113,6 +113,8 @@ class QuoteCreate extends Component
         $this->validate([
             'voucher_type' => ['required', 'in:1,2'],
             'date' => ['nullable', 'date'],
+            'correlative' => ['required', 'numeric', 'min:1'],
+            'series' => ['required', 'string', 'max:10'],
             'customer_id' => ['required', 'exists:customers,id'],
             'total' => ['required', 'numeric', 'min:0'],
             'observations' => ['nullable', 'string', 'max:500'],

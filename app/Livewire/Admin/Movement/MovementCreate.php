@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Admin\Movement;
 
-use App\Models\Quote;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Movement;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use App\Traits\SweetAlertNotifications;
 
 class MovementCreate extends Component
@@ -15,16 +16,17 @@ class MovementCreate extends Component
 
     // Public properties that hold form data
     public $product_id;         // ID of the product currently being added
-    public $customer_id;        // ID of the selected customer
-    public $voucher_type = '';  // Type of voucher (e.g., '1' for Invoice, '2' for Receipt)
-    public $series = 'C001';    // Default series code for the Quote
+    public $warehouse_id;        // ID of the selected warehouse
+    public $reason_id;        // ID of the selected reason
+    public $type = '';  // Type of voucher (e.g., '1' for Income, '2' for Outcome)
+    public $series = 'M001';    // Default series code for the Movement
     public $correlative;        // The sequential correlative number for the PO
-    public $date;               // The date of the Quote
-    public $total = 0;          // Calculated total amount of the Quote
-    public $observations = null;// Optional notes or observations
+    public $date;               // The date of the Movement
+    public $total = 0;          // Calculated total amount of the Movement
+    public $observation = null;// Optional notes or observation
 
     /**
-     * Array to hold the list of products added to the Quote.
+     * Array to hold the list of products added to the Movement.
      * Structure: ['id' => int, 'name' => string, 'quantity' => int, 'price' => float, 'subtotal' => float]
      */
     public $products = [];
@@ -103,38 +105,49 @@ class MovementCreate extends Component
         $this->reset('product_id');
     }
 
+    public function updated($property, $value)
+    {
+        if ($property == 'type') {
+            $this->reset('reason_id');
+        }
+    }
+
     /**
-     * Handles the creation of the Quote and its associated products.
+     * Handles the creation of the Movement and its associated products.
      */
     public function save()
     {
-        // Validate all necessary fields for the Quote header and product lines
+        // Validate all necessary fields for the Movement header and product lines
         $this->validate([
-            'voucher_type' => ['required', 'in:1,2'],
+            'type' => ['required', 'in:1,2'],
+            'series' => ['required', 'string', 'max:10'],
+            'correlative' => ['required', 'numeric', 'min:1'],
             'date' => ['nullable', 'date'],
-            'customer_id' => ['required', 'exists:customers,id'],
+            'warehouse_id' => ['required', 'exists:customers,id'],
+            'reason_id' => ['required', 'exists:reasons,id'],
             'total' => ['required', 'numeric', 'min:0'],
-            'observations' => ['nullable', 'string', 'max:500'],
+            'observation' => ['nullable', 'string', 'max:500'],
             'products' => ['required', 'array', 'min:1'], // Must have at least one product
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.quantity' => ['required', 'numeric', 'min:1'],
             'products.*.price' => ['required', 'numeric', 'min:0']
         ]);
 
-        // Create the Quote record in the database
-        $quote = Quote::create([
-            'voucher_type' => $this->voucher_type,
+        // Create the Movement record in the database
+        $movement = Movement::create([
+            'type' => $this->type,
             'series' => $this->series,
             'correlative' => $this->correlative,
             'date' => $this->date ?? now(), // Use current date if no date is provided
-            'customer_id' => $this->customer_id,
+            'warehouse_id' => $this->warehouse_id,
             'total' => $this->total,
-            'observations' => $this->observations,
+            'observation' => $this->observation,
+            'reason_id' => $this->reason_id
         ]);
 
-        // Attach each product to the newly created Quote using the pivot table
+        // Attach each product to the newly created Movement using the pivot table
         foreach ($this->products as $product) {
-            $quote->products()->attach(
+            $movement->products()->attach(
                 $product['id'],
                 [
                     'quantity' => $product['quantity'],
@@ -146,10 +159,10 @@ class MovementCreate extends Component
         }
 
         // Dispatch success notification via SweetAlert
-        $this->createdNotification(__('Quote'));
+        $this->createdNotification(__('Movement'));
 
-        // Redirect the user to the Quotes index page
-        return redirect()->route('admin.quotes.index');
+        // Redirect the user to the Movements index page
+        return redirect()->route('admin.movements.index');
     }
 
     /**
@@ -159,7 +172,7 @@ class MovementCreate extends Component
     public function mount()
     {
         // Get the maximum existing correlative number and increment it by 1 for the new PO
-        $this->correlative = Quote::max('correlative') + 1;
+        $this->correlative = Movement::max('correlative') + 1;
     }
     public function render(): View
     {

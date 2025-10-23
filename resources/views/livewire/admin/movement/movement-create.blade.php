@@ -20,12 +20,12 @@
 }">
     <x-wire-card>
         <form wire:submit="save" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 {{-- Voucher Type --}}
-                <x-wire-native-select label="{{ __('Voucher Type') }}" wire:model="voucher_type" required>
+                <x-wire-native-select label="{{ __('Movement Type') }}" wire:model.live="type" required>
                     <option value="" selected disabled>{{ __('Select') }}</option>
-                    <option value="1">{{ __('Receipt') }}</option> {{-- Boleta --}}
-                    <option value="2">{{ __('Invoice') }}</option> {{-- Factura --}}
+                    <option value="1">{{ __('Income') }}</option> {{-- Ingreso --}}
+                    <option value="2">{{ __('Outcome') }}</option> {{-- Salida --}}
                 </x-wire-native-select>
 
                 {{-- Series --}}
@@ -36,14 +36,24 @@
 
                 {{-- Date --}}
                 <x-wire-input type="date" label="{{ __('Date') }}" wire:model="date"></x-wire-input>
-            </div>
 
-            {{-- Customer --}}
-            <x-wire-select label="{{ __('Customer') }}" wire:model="customer_id" :async-data="[
-                'api' => route('api.customers.index'),
-                'method' => 'POST',
-            ]" option-label="name"
-                option-value="id" class="flex-1" required />
+                {{-- Warehouse --}}
+                <x-wire-select class="md:col-span-2 flex-1" label="{{ __('Warehouse') }}" wire:model="warehouse_id"
+                    :async-data="[
+                        'api' => route('api.warehouses.index'),
+                        'method' => 'POST',
+                    ]" option-label="name" option-value="id" required />
+
+                {{-- Reason --}}
+                <x-wire-select class="md:col-span-2 flex-1" label="{{ __('Reason') }}" wire:model="reason_id"
+                    :async-data="[
+                        'api' => route('api.reasons.index'),
+                        'method' => 'POST',
+                        'params' => [
+                            'type' => $type,
+                        ],
+                    ]" option-label="name" option-value="id" required />
+            </div>
 
             <div class="lg:flex lg:space-x-4">
                 {{-- Product --}}
@@ -110,7 +120,7 @@
             {{-- Total --}}
             <section class="flex items-center space-x-4 mt-6">
                 <x-label for="observation">{{ __('Observations') }}</x-label>
-                <x-wire-textarea class="flex-1" id="observation" wire:model="observations" />
+                <x-wire-textarea class="flex-1" id="observation" wire:model="observation" />
 
                 <div>
                     {{ __('Total') }}&#58;&#160;&#36;<span x-text="total.toFixed(2)"

@@ -117,6 +117,8 @@ class PurchaseOrderCreate extends Component
         $this->validate([
             'voucher_type' => ['required', 'in:1,2'],
             'date' => ['nullable', 'date'],
+            'series' => ['required', 'string', 'max:10'],
+            'correlative' => ['required', 'numeric', 'min:1'],
             'supplier_id' => ['required', 'exists:suppliers,id'],
             'total' => ['required', 'numeric', 'min:0'],
             'observations' => ['nullable', 'string', 'max:500'],

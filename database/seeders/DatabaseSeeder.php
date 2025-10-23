@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use Database\Seeders\Management\CategorySeeder;
 use Database\Seeders\Management\IdentitySeeder;
 use Database\Seeders\Management\ProductSeeder;
+use Database\Seeders\Management\ReasonSeeder;
 use Database\Seeders\Management\WarehouseSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -51,8 +52,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AuthenticatedUserSeeder::class,
             CategorySeeder::class,
-            ProductSeeder::class,
             IdentitySeeder::class,
+            ProductSeeder::class,
+            ReasonSeeder::class,
             WarehouseSeeder::class,
         ]);
 
