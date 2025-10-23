@@ -98,12 +98,13 @@
         [
             'name' => __('Movements'),
             'icon' => 'fa-solid fa-arrows-rotate',
-            'active' => false,
+            'active' => request()->routeIs(['admin.movements.*']),
             'submenu' => [
                 [
                     'name' => __('Inputs and Outputs'),
-                    'route' => '',
-                    'active' => false,
+                    'icon' => 'fa-solid fa-right-to-bracket',
+                    'route' => route('admin.movements.index'),
+                    'active' => request()->routeIs('admin.movements.*'),
                 ],
 
                 [
