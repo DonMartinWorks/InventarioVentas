@@ -15,7 +15,7 @@
     </x-slot>
 
     <section>
-        @livewire('admin.datatables.quote-datatable')
+        @livewire('admin.datatables.movement-datatable')
     </section>
 
     @push('js')

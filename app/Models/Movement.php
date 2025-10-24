@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Movement extends Model
@@ -22,6 +23,30 @@ class Movement extends Model
         'total',
         'observation',
     ];
+
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+
+    /**
+     * Get the warehouse that owns the Movement
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function warehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    /**
+     * Get the reason that owns the Movement
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function reason(): BelongsTo
+    {
+        return $this->belongsTo(Reason::class);
+    }
 
     /**
      * Get all the products for the movement.
