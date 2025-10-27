@@ -98,7 +98,7 @@
         [
             'name' => __('Movements'),
             'icon' => 'fa-solid fa-arrows-rotate',
-            'active' => request()->routeIs(['admin.movements.*']),
+            'active' => request()->routeIs(['admin.movements.*', 'admin.transfers.*']),
             'submenu' => [
                 [
                     'name' => __('Inputs and Outputs'),
@@ -109,8 +109,9 @@
 
                 [
                     'name' => __('Transfers'),
-                    'route' => '',
-                    'active' => false,
+                    'icon' => 'fa-solid fa-money-bill-transfer',
+                    'route' => route('admin.transfers.index'),
+                    'active' => request()->routeIs('admin.transfers.*'),
                 ],
             ],
         ],

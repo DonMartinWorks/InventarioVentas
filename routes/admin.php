@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Management\SupplierController as Supplier;
 use App\Http\Controllers\Admin\Management\ProductController as Product;
 use App\Http\Controllers\Admin\Management\PurchaseController as Purchase;
 use App\Http\Controllers\Admin\Management\PurchaseOrderController as PurchaseOrder;
+use App\Http\Controllers\Admin\Management\TransferController as Transfer;
 use App\Http\Controllers\Admin\Management\MovementController as Movement;
 use App\Http\Controllers\Admin\Management\QuoteController as Quote;
 use App\Http\Controllers\Admin\Management\SaleController as Sale;
@@ -61,6 +62,9 @@ Route::resource('/sales', Sale::class)->only(['index', 'create']);
 
 // Movements Section
 Route::resource('/movements', Movement::class)->only(['index', 'create']);
+
+// Tranfers Section
+Route::resource('/transfers', Transfer::class)->only(['index', 'create']);
 
 /**
  * Others
