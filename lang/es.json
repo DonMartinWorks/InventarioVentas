@@ -106,6 +106,7 @@
     "Delete Team": "Borrar equipo",
     "Deleted": "Eliminado",
     "Description": "Descripción",
+    "Destination Warehouse": "Almacén de destino",
     "Detach": "Desvincular",
     "Details": "Detalles",
     "Disable": "Deshabilitar",
@@ -245,6 +246,7 @@
     "Open in the topmost frame": "Abrir en el marco superior",
     "Open on the website": "Abrir en el sitio web",
     "Origin Is Unreachable": "El origen es inalcanzable",
+    "Origin Warehouse": "Almacén de origen",
     "Outcome": "Salida",
     "Page Expired": "Página expirada",
     "Pagination Navigation": "Navegación por los enlaces de paginación",
@@ -404,6 +406,7 @@
     "Translate It": "Traducirlo",
     "Two Factor Authentication": "Autenticación de dos factores",
     "Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator application or enter the setup key.": "La autenticación de dos factores ahora está habilitada. Escanee el siguiente código QR usando la aplicación de autenticación de su teléfono o ingrese la clave de configuración.",
+    "Type": "Tipo",
     "Unauthorized": "No autorizado",
     "Unavailable For Legal Reasons": "No disponible por razones legales",
     "Unknown": "Desconocido",
@@ -449,6 +452,5 @@
     "You may not delete your personal team.": "No se puede borrar su equipo personal.",
     "You may not leave a team that you created.": "No se puede abandonar un equipo que usted creó.",
     "You will not be able to revert this!": "No podrás revertir esta acción",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
-    "Type": "Tipo"
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
 }

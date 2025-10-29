@@ -1,17 +1,17 @@
-<x-admin-layout title="{{ __('All :name', ['name' => __('Inputs and Outputs')]) }}" :breadcrumb="[
+<x-admin-layout title="{{ __('All :name', ['name' => __('Transfers')]) }}" :breadcrumb="[
     // Route Dashboard
     [
         'name' => __('Dashboard'),
         'url' => route('admin.home'),
     ],
 
-    // Route Movements
+    // Route Transfers
     [
-        'name' => __('Inputs and Outputs'),
+        'name' => __('Transfers'),
     ],
 ]">
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.movements.create" modelName="Movement" />
+        <x-forms.title-header createRoute="admin.transfers.create" modelName="Transfer" />
     </x-slot>
 
     <section>

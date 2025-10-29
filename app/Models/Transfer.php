@@ -14,7 +14,6 @@ class Transfer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
         'series',
         'correlative',
         'date',
@@ -22,6 +21,10 @@ class Transfer extends Model
         'observation',
         'origin_warehouse_id',
         'destination_warehouse_id',
+    ];
+
+    protected $casts = [
+        'date' => 'datetime'
     ];
 
     /**

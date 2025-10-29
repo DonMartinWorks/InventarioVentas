@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('origin_warehouse_id')->constrained('warehouses')->onDelete('CASCADE');
             $table->foreignId('destination_warehouse_id')->constrained('warehouses')->onDelete('CASCADE');
-            $table->integer('type');
             $table->string('series');
             $table->integer('correlative');
             $table->timestamp('date')->useCurrent();
