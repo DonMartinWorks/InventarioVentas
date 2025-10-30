@@ -11,7 +11,7 @@
     ],
 ]">
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.categories.create" modelName="Categories" />
+        <x-forms.title-header createRoute="admin.categories.create" modelName="Category" allModels="Categories" />
     </x-slot>
 
     <section>

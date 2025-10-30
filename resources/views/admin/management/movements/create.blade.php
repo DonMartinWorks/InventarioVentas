@@ -11,12 +11,12 @@
     ],
 
     [
-        'name' => __('Create :name', ['name' => __('Movement')]),
+        'name' => __('Create :name', ['name' => __('Inputs/Output')]),
     ],
 ]">
     <x-wire-card>
         <h2 class="text-2xl/7 font-bold text-gray-700 sm:truncate sm:text-3xl sm:tracking-tight">
-            {{ __('Create :name', ['name' => __('Movement')]) }}</h2>
+            {{ __('Create :name', ['name' => __('Inputs/Output')]) }}</h2>
     </x-wire-card>
 
     <div class="mt-4">

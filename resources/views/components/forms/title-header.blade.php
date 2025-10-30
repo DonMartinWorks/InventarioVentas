@@ -1,9 +1,9 @@
-@props(['createRoute', 'modelName'])
+@props(['createRoute', 'modelName', 'allModels'])
 
 <div class="p-4 border bg-neutral-100 border-gray-300 rounded-lg">
     <div class="flex items-center justify-between">
         <h2 class="text-2xl uppercase font-extrabold underline underline-offset-4 text-stone-800 line-clamp-1">
-            {{ __('All :name', ['name' => __($modelName)]) }}
+            {{ __('All :name', ['name' => __($allModels)]) }}
         </h2>
 
         <a href="{{ route($createRoute) }}" title="{{ __('Create :name', ['name' => __($modelName)]) }}"

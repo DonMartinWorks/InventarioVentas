@@ -20,7 +20,7 @@
     @endpush
 
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.suppliers.create" modelName="Suppliers" />
+        <x-forms.title-header createRoute="admin.suppliers.create" modelName="Supplier" allModels="Suppliers" />
     </x-slot>
 
     <section>

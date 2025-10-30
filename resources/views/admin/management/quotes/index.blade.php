@@ -11,7 +11,7 @@
     ],
 ]">
     <x-slot name="actions">
-        <x-forms.title-header createRoute="admin.quotes.create" modelName="Quotes" />
+        <x-forms.title-header createRoute="admin.quotes.create" modelName="Quote" allModels="Quotes" />
     </x-slot>
 
     <section>
