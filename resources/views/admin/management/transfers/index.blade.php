@@ -15,7 +15,7 @@
     </x-slot>
 
     <section>
-        @livewire('admin.datatables.movement-datatable')
+        @livewire('admin.datatables.transfer-datatable')
     </section>
 
     @push('js')
