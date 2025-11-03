@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Purchase extends Model
@@ -57,5 +58,23 @@ class Purchase extends Model
         return $this->morphToMany(Product::class, 'productable')
             ->withPivot('quantity', 'price', 'subtotal')
             ->withTimestamps();
+    }
+
+    /**
+     * Get all of the inventory records for the purchase.
+     *
+     * This is a **one-to-many polymorphic relationship**. It signifies that a
+     * single **Purchase** (the parent model) can generate **many** entries
+     * in the **Inventory** table (the morph to model). These entries typically
+     * record the **stock increase** resulting from the purchase transaction.
+     *
+     * The relationship is defined by the `inventoryable_id` and
+     * `inventoryable_type` columns on the `Inventory` model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function inventories(): MorphMany
+    {
+        return $this->morphMany(Inventory::class, 'inventoryable');
     }
 }

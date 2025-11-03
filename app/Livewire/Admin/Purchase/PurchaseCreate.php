@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Purchase;
 
+use App\Models\Inventory;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Purchase;
@@ -153,6 +154,48 @@ class PurchaseCreate extends Component
                     'subtotal' => $product['quantity'] * $product['price'],
                 ]
             );
+
+            // --- Kardex --- //
+            // Weighted Average Costing Logic
+            // The inventory (Kardex) is updated to record the incoming stock from the purchase,
+            // calculating the new stock balance and the new average unit cost.
+
+            // 1. Retrieve the last inventory record (starting balance) for this product and warehouse.
+            $lastRecord = Inventory::where('product_id', $product['id'])
+                ->where('warehouse_id', $this->warehouse_id)
+                ->latest('id')
+                ->first();
+
+            // 2. Define previous balances (0 if no prior record exists).
+            $lastQuantityBalance = $lastRecord?->quantity_balance ?? 0; // Previous quantity on hand
+            $lastTotalBalance = $lastRecord?->total_balance ?? 0;       // Previous total cost value
+
+            // 3. Calculate the new balances after the purchase.
+            $newQuantityBalance = $lastQuantityBalance + $product['quantity'];
+            // New Total Cost = Previous Total Balance + Current Purchase Cost (In Quantity * Purchase Price)
+            $newTotalBalance = $lastTotalBalance + ($product['quantity'] * $product['price']);
+
+            // 4. Calculate the new Weighted Average Unit Cost.
+            // Average Cost = New Total Cost / New Total Quantity
+            // Check to prevent division by zero, although quantity validation should cover this.
+            $newCostBalance = $newQuantityBalance > 0 ? $newTotalBalance / $newQuantityBalance : 0;
+
+            // quantity global variable
+            $qty = $product['quantity'];
+
+            // Store to inventory
+            $purchase->inventories()->create([
+                'detail' => __('Purchase'),
+                'quantity_in' => $qty,
+                // Note: 'cost_in' should ideally be the unit purchase price ($product['price']) for better audit trail.
+                'cost_in' => $qty, // ***This line uses the original code's value***
+                'total_in' => $qty * $product['price'],
+                'quantity_balance' => $newQuantityBalance,
+                'cost_balance' => $newCostBalance, // The new weighted average cost
+                'total_balance' => $newTotalBalance,
+                'product_id' => $product['id'],
+                'warehouse_id' => $this->warehouse_id
+            ]);
         }
 
         // Dispatch success notification via SweetAlert
