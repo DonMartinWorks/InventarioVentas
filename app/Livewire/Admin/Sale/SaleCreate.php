@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Admin\Sale;
 
-use App\Models\Product;
-use App\Models\Quote;
 use App\Models\Sale;
+use App\Models\Quote;
+use App\Models\Product;
 use Livewire\Component;
+use App\Models\Inventory;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use App\Traits\SweetAlertNotifications;
@@ -153,6 +154,33 @@ class SaleCreate extends Component
                     'subtotal' => $product['quantity'] * $product['price'],
                 ]
             );
+
+            // --- Kardex --- //
+            $lastRecord = Inventory::where('product_id', $product['id'])
+                ->where('warehouse_id', $this->warehouse_id)
+                ->latest('id')
+                ->first();
+
+            $lastQuantityBalance = $lastRecord?->quantity_balance ?? 0;
+            $lastTotalBalance = $lastRecord?->total_balance ?? 0;
+            $lastCostBalance = $lastRecord?->cost_balance ?? 0;
+
+            $newQuantityBalance = $lastQuantityBalance - $product['quantity'];
+            $newTotalBalance = $lastTotalBalance - ($product['quantity'] * $lastCostBalance);
+            $newCostBalance = $newTotalBalance / ($newQuantityBalance ?: 1);
+
+            // Store to inventory
+            $sale->inventories()->create([
+                'detail' => __('Sale'),
+                'quantity_out' => $product['quantity'],
+                'cost_out' => $lastCostBalance,
+                'total_out' => $product['quantity'] * $lastCostBalance,
+                'quantity_balance' => $newQuantityBalance,
+                'cost_balance' => $newCostBalance,
+                'total_balance' => $newTotalBalance,
+                'product_id' => $product['id'],
+                'warehouse_id' => $this->warehouse_id
+            ]);
         }
 
         // Dispatch success notification via SweetAlert

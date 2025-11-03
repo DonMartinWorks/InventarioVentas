@@ -180,16 +180,12 @@ class PurchaseCreate extends Component
             // Check to prevent division by zero, although quantity validation should cover this.
             $newCostBalance = $newQuantityBalance > 0 ? $newTotalBalance / $newQuantityBalance : 0;
 
-            // quantity global variable
-            $qty = $product['quantity'];
-
             // Store to inventory
             $purchase->inventories()->create([
                 'detail' => __('Purchase'),
-                'quantity_in' => $qty,
-                // Note: 'cost_in' should ideally be the unit purchase price ($product['price']) for better audit trail.
-                'cost_in' => $qty, // ***This line uses the original code's value***
-                'total_in' => $qty * $product['price'],
+                'quantity_in' => $product['quantity'],
+                'cost_in' => $product['price'], // ***This line uses the original code's value***
+                'total_in' => $product['quantity'] * $product['price'],
                 'quantity_balance' => $newQuantityBalance,
                 'cost_balance' => $newCostBalance, // The new weighted average cost
                 'total_balance' => $newTotalBalance,
